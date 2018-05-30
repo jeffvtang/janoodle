@@ -1,7 +1,40 @@
 body {
-  background-color: #EEE;
+  background-color: #06c696;
+  font-family: 'Song Myung', serif;
+  text-align: center;
+  margin-top: 10em;
 
-  h1 {
-    color: #244751;
+  h1#welcome {
+    color: white;
+    font-size:4em;
+    margin-bottom: 0.25em;
+  }
+  p.desc-text {
+    color: white;
+    font-size: 2em;
+  }
+  textarea#eventName {
+    border-radius: 7px;
+    width: 33%;
+    font-size: 1.5em;
+    height: 2.5em;
+    vertical-align: top;
+    line-height: 2.2;
+  }
+  button#poll {
+    border-radius: 7px;
+    border: 0;
+    display:inline-block;
+    background-color: #f07f5d;
+    color: #fff;
+    height: 2em;
+    font-size: 1.5em;
+    margin: 0.5em;
+    text-align: center;
+    vertical-align: middle;
+  }
+  img.screenshot {
+    margin: 3em;
+    width: 30em;
   }
 }
