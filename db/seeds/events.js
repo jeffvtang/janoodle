@@ -1,4 +1,4 @@
-exports.seed = function(knex, Promise) {
+exports.seed = function (knex, Promise) {
   function deleteEvents() {
     return knex('events').del();
   }
@@ -16,8 +16,7 @@ exports.seed = function(knex, Promise) {
   }
 
   function insertEvents() {
-    return knex('events').insert([
-      {
+    return knex('events').insert([{
         id: '111a',
         name: 'Code event name',
         description: 'Lighthouse coding',
@@ -42,32 +41,41 @@ exports.seed = function(knex, Promise) {
   }
 
   function insertAttendees() {
-    return knex('attendees').insert([
-      {
+    return knex('attendees').insert([{
+        id: 1,
         name: 'Joe',
         email: 'joe@gmail.com',
         event_id: '111a',
       },
       {
+        id: 2,
         name: 'Jessia',
         email: 'jessica@gmail.com',
         event_id: '222b',
       },
+      {
+        id: 3,
+        name: 'James',
+        email: 'james@gmail.com',
+        event_id: '333c',
+      }
     ]);
   }
 
   function insertTimes() {
     return knex('times').insert([
-      { event_id: '111a', start_time: '19800101', end_time: '19800102' },
-      { event_id: '222b', start_time: '19801001', end_time: '19801002' },
-      { event_id: '333c', start_time: '19990101', end_time: '19990102' },
+      { id: 1, event_id: '111a', start_time: '19800101', end_time: '19800102' },
+      { id: 2, event_id: '222b', start_time: '19801001', end_time: '19801002' },
+      { id: 3, event_id: '333c', start_time: '19990101', end_time: '19990102' },
     ]);
   }
 
   function insertAvailabilities() {
-    return knex('availabilities').insert([{ attendee_id: 8, time_id: 10 },
-        { attendee_id: 7, time_id: 11 },
-        { attendee_id: 7, time_id: 12 }]);
+    return knex('availabilities').insert([
+      {id: 1, attendee_id: 1, time_id: 1 },
+      {id: 2, attendee_id: 1, time_id: 3 },
+      {id: 3, attendee_id: 2, time_id: 2 },
+    ]);
   }
 
   return deleteAvailabilities()
