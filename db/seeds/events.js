@@ -8,6 +8,10 @@ exports.seed = function (knex, Promise) {
     return knex('times').del()
   }
 
+  function deleteAttendees() {
+    return knex('attendees').del()
+  }
+
   function insertEvents() {
     return knex('events').insert([
       { id: '111', name: 'Code event name', description: 'Lighthouse coding', creator_name: 'Alice', creator_email: 'a@gmail.com' },
@@ -15,24 +19,21 @@ exports.seed = function (knex, Promise) {
       { id: '333', name: 'networking event', description: 'Lighthouse networking', creator_name: 'Peter', creator_email: 'peter@gmail.com' }
     ])
   }
-  function insertAttendes() {
-    return knex('attendes')
-      .insert([
-        {
-          id: 1,
+
+  function insertAttendees() {
+    return knex('attendees')
+      .insert([{
           name: 'Joe',
           email: 'joe@gmail.com',
           event_id: '111',
         },
         {
-          id: 2,
           name: 'Jessia',
           email: 'jessica@gmail.com',
           event_id: '222',
-        },
-        { name: 'Mad Max: Fury Road', year: '2016' },
+        }
       ])
-    }
+  }
 
   function insertTimes() {
     return knex('times').insert([
