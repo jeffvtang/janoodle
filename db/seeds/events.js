@@ -44,7 +44,9 @@ exports.seed = function (knex, Promise) {
   }
 
   return deleteTimes()
+    .then(deleteAttendees)
     .then(deleteEvents)
     .then(insertEvents)
+    .then(insertAttendees)
     .then(insertTimes)
 }
