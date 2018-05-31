@@ -23,6 +23,21 @@ body {
     vertical-align: top;
     line-height: 2.2;
   }
+  h1#howItWorks {
+    font-size:3em;
+
+  }
+
+  p#info {
+    font-size: 2em;
+
+  }
+
+  div#homepageText {
+    background-color: #086788;
+    color: white;
+  }
+
 
   button#poll {
     border-radius: 7px;
@@ -114,7 +129,7 @@ body {
   i.toggle {
       color: green;
   }
-button.addRow {
+div.addRow {
   border: 0;
 background-color: white;
 color: #06c696;
