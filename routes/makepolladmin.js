@@ -27,5 +27,32 @@ module.exports = function() {
     res.render('create', templateVars);
   });
 
+  const express = require('express');
+const makePollAdmin = express.Router();
+
+module.exports = function() {
+  makePollAdmin.get('/', (req, res) => {
+        
+
+
+    if (req.session.eventTitle) {
+      const templateVars = { eventTitle: req.session.eventTitle };
+
+      return res.render('index.ejs', templateVars);
+    } else {
+      return res.render('index.ejs');
+    }
+    console.log(req.session);
+    res.render('index.ejs');
+  });
+
+  makePollAdmin.post('/poll', (req, res) => {
+      res.render("poll.ejs")
+  });
+
+  return makePollAdmin;
+};
+
+
   return makePollAdmin;
 };
