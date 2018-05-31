@@ -53,24 +53,23 @@ module.exports = function(knex) {
     const eventCreatorName = req.body.eventCreatorEmail;
     const eventCreatorEmail = req.body.eventCreatorEmail;
 
-    console.log(eventDescription, eventCreatorEmail);
-    knex('events')
-      .insert({
-        id: urlId,
-        name: eventName,
-        description: eventDescription,
-        creator_name: eventCreatorName,
-        creator_email: eventCreatorEmail,
-      })
-      .returning('id')
-      .then(function(response) {
-        return knex('times').insert({
-          event_id: response[0],
-          start_time: eventStartDate,
-          end_time: eventEndDate,
-        });
-        console.log(response);
-      });
+    // knex('events')
+    //   .insert({
+    //     id: urlId,
+    //     name: eventName,
+    //     description: eventDescription,
+    //     creator_name: eventCreatorName,
+    //     creator_email: eventCreatorEmail,
+    //   })
+    //   .returning('id')
+    //   .then(function(response) {
+    //     return knex('times').insert({
+    //       event_id: response[0],
+    //       start_time: eventStartDate,
+    //       end_time: eventEndDate,
+    //     });
+    //     console.log(response);
+    //   });
 
     //res.render('poll.ejs')
     res.redirect(`/poll/${urlId}`);
