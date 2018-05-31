@@ -40,10 +40,19 @@
             <table>
             <tr>
               <td>time data</td>
+              <% console.log('inside poll', results2) %>
+              <% results2.forEach(function(x) { %>
+              <td><%= x.start.toLocaleDateString() %> to <%=x.end.toLocaleDateString()%></td>
+              <% }) %>
+
             </tr>
             
             <tr>
               <td>counts</td>
+              <% results2.forEach(function(x) { %>
+              
+              <td><%=x.count%></td>
+              <% }) %>
             </tr>
           
             <% for (var element in results) { %>
@@ -54,7 +63,6 @@
               <% }) %>
               </tr>
             <% } %>
-          
           </table>
           
 <p></p>
