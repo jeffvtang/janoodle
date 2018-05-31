@@ -17,11 +17,11 @@ module.exports = function (knex) {
       .from('events')
       .then(function (result) {
         console.log(result)
-        knex.destroy()
+        // knex.destroy()
       })
       .catch(function (err) {
         console.log(err)
-        knex.destroy()
+        // knex.destroy()
       })
 
     if (req.session.eventTitle) {
