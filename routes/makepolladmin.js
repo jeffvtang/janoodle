@@ -1,6 +1,21 @@
 const express = require('express');
 const makePollAdmin = express.Router();
 
+function groupByID(objectArray, property) {
+  return objectArray.reduce(function (acc, obj) {
+    var key = obj[property];
+    if (!acc[key]) {
+      acc[key] = {}
+    }
+    acc[key].name = obj.name
+    acc[key].id = obj.id
+    if (!acc[key].avail) {
+      acc[key].avail = []
+    }
+    acc[key].avail.push(obj.avail)
+    return acc;
+  }, {});
+}
 
 module.exports = function (knex) {
   makePollAdmin.get('/', (req, res) => {
@@ -33,7 +48,7 @@ module.exports = function (knex) {
     // JOIN times ON (times.id = availabilities.time_id)
     // WHERE (events.id = '111a');
 
-    knex.select('attendees.id AS id', 'attendees.name AS name', 'times.id AS timeslot', 'is_available AS avail')
+    knex.select('attendees.id AS id', 'attendees.name AS name', 'is_available AS avail')
     // knex.select()
     .from('availabilities')
     .join('attendees', 'attendees.id', '=', 'availabilities.attendee_id')
@@ -41,7 +56,9 @@ module.exports = function (knex) {
     .join('times', 'times.id', '=', 'availabilities.time_id')
     .where('events.id', '111a')
       .then(function (result) {
-        results = result
+        // results = result
+        var results = groupByID(result, 'id');
+
         const templateVars = {
           results: results
         }

@@ -30,13 +30,14 @@
   <p class='desc-text'>Scheduling events made easy.</p>
 
 <table>
-  <% results.forEach(function(element) { %>
+  <% for (var element in results) { %>
     <tr> 
-    <td><%= element.name %></td>
-    
-
+    <td><%= results[element].name %></td>
+    <% results[element].avail.forEach(function(number) { %>
+    <td><%= number %></td>
+    <% }) %>
     </tr>
-  <% }) %>
+  <% } %>
 </table>
 
   <span>
