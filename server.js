@@ -41,6 +41,12 @@ app.use("/api/users", usersRoutes(knex));
 // Home page
 app.get("/", (req, res) => {
   res.render("index");
+  //res.end();
+});
+
+app.post("/", (req, res) => {
+  console.log(req.params.eventTitle)
+  res.render("polls");
 });
 
 app.get("/polls", (req, res) => {
