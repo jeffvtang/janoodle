@@ -16,5 +16,9 @@ module.exports = (knex) => {
     });*/
   });
 
+  router.get("/polls", (req, res) => {
+    res.status(200).send();
+  });
+
   return router;
 }
