@@ -24,7 +24,7 @@ module.exports = function() {
     res.render('create', templateVars);
   });
 
-  makePollAdmin.post('/poll', (req, res) => {
+  makePollAdmin.get('/poll', (req, res) => {
     res.render('poll.ejs');
   });
 
