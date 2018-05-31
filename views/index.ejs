@@ -28,12 +28,29 @@
 <body>
   <h1 id='welcome'>Welcome to JANoodle!</h1>
   <p class='desc-text'>Scheduling events made easy.</p>
+
+<table>
+  <% for (var element in results) { %>
+    <tr> 
+    <td><%= results[element].name %></td>
+    <% results[element].avail.forEach(function(number) { %>
+    <td><%= number %></td>
+    <% }) %>
+    </tr>
+  <% } %>
+</table>
+
   <span>
     <form action="/create" method="POST">
       <input id='eventName' placeholder='What are you planning?' name="eventTitle"></input>
-      <button type="submit" class="btn btn-primary" >Create JANoodle poll!</button>
+      <button type="submit" id="poll" >Create JANoodle poll!</button>
     </form>
     <img class='screenshot' src=http://www.retailhabitatsdesign.com/wp-content/uploads/2017/05/Test-Computer-Key-by-Stuart-Miles.jpg></img>
+
+    <div id='homepageText'>
+      <h1 id='howItWorks'>How it works!</h1>
+      <p id='info'>JANoodle is a web app for scheduling and planning events. You start by naming this event, then you tell your friends who's running the event and where it is.  You can send your friends multiple options of dates/times for this event, send them the link to your page and they get to choose what dates work best for them.</p>
+    </div>
 </body>
 
 </html>
