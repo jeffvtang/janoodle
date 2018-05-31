@@ -3,9 +3,6 @@ const makePollAdmin = express.Router();
 
 module.exports = function() {
   makePollAdmin.get('/', (req, res) => {
-        
-
-
     if (req.session.eventTitle) {
       const templateVars = { eventTitle: req.session.eventTitle };
 
@@ -18,13 +15,17 @@ module.exports = function() {
   });
 
   makePollAdmin.post('/create', (req, res) => {
-        if (!req.body.eventTitle) {
-            res.sendStatus(400)
-        }
+    if (!req.body.eventTitle) {
+      res.sendStatus(400);
+    }
 
     req.session.eventTitle = req.body.eventTitle;
     const templateVars = { eventTitle: req.session.eventTitle };
     res.render('create', templateVars);
+  });
+
+  makePollAdmin.get('/poll', (req, res) => {
+    res.render('poll.ejs');
   });
 
   return makePollAdmin;
