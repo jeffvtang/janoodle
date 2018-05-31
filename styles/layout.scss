@@ -96,4 +96,20 @@ body {
     }
   }
   }
+  table.pollTable, th, td {
+    border: 1px solid #d3d3d3;
+    font-size: 150%;
+    }
+
+    i.far.fa-check-square {
+      color: red
+  }
+
+  i.far.fa-check-square:hover {
+      color: orange;
+  }
+
+  i.toggle {
+      color: green;
+  }
 }
