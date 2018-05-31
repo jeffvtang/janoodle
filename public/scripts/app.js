@@ -1,4 +1,4 @@
-$(() => {
+/*$(() => {
   $.ajax({
     method: "GET",
     url: "/api/users"
@@ -7,4 +7,12 @@ $(() => {
       $("<div>").text(user.name).appendTo($("body"));
     }
   });;
+});*/
+
+$(document).ready(function() {
+$('.addRow').on("click", function(event) {
+    $(".newRow").slideToggle();
+    $(".newRow textarea").focus();
+
+  });
 });

@@ -98,18 +98,26 @@ body {
   }
   table.pollTable, th, td {
     border: 1px solid #d3d3d3;
-    font-size: 150%;
+    font-size: 100%;
+    width: 90%
     }
 
-    i.far.fa-check-square {
+
+    i.fas.fa-check {
       color: red
   }
 
-  i.far.fa-check-square:hover {
+  i.fas.fa-check:hover {
       color: orange;
   }
 
   i.toggle {
       color: green;
   }
+button.addRow {
+  border: 0;
+background-color: white;
+color: #06c696;
+  }
 }
+
