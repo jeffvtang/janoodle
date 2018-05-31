@@ -29,9 +29,15 @@
   <h1 id='welcome'>Welcome to JANoodle!</h1>
   <p class='desc-text'>Scheduling events made easy.</p>
 
-<% attendeeNames.forEach(function(element) { %>
-        <p> <%= element.name %></p>
-      <% }) %>
+<table>
+  <% results.forEach(function(element) { %>
+    <tr> 
+    <td><%= element.a_name %></td>
+    
+
+    </tr>
+  <% }) %>
+</table>
 
   <span>
     <form action="/create" method="POST">
