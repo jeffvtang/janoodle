@@ -24,24 +24,28 @@
   </head>
 
   <body>
-    <section id='input container'>
-    <article>
+    <section id='forms-container'>
+    <article >
           <header>
-            <p class='headerText'> JANoodle</p>
+            <h3 class='headerText'> JANoodle</h3>
           </header>
-            <h2>Event Details</h2>
-          <p class="forms">
-            <form>
-                <input type='text' placeholder='event name'>
-                <input type='text' placeholder='date and time'>
-                <input type='text' placeholder='location'>
-                <input type='text' placeholder="What's your name?">
-                <input type='text' placeholder='Enter your email please'>
-        </form>
-          </p>
 
+          <div class ='mainArea'>
+            <h2>Event Details</h2>
+            <form class='input-data'>
+                <input name='eventName' class="forms" type='text' placeholder='Event Name'>
+                <br>
+                <input name='date1' class="forms" type='text' placeholder='Date and Time'>
+                <br>
+                <input name='location' class="forms" type='text' placeholder='Location'>
+                <br>
+                <input name='creatorName' class="forms" type='text' placeholder="What's your name?">
+                <br>
+                <input name='creatorEmail' class="forms" type='text' placeholder='Enter your email please'>
+        </form>
+        </div>
           <footer>
-            <button class='continue'>Submit my poll</button>
+            <button class='submit'>Submit my poll</button>
           </footer>
         </article>
     </section>
