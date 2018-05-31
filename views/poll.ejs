@@ -36,6 +36,29 @@
              <div class ='mainArea'>
             <h2>Event Name</h2>
             <h3>location</h3>
+
+            <table>
+            <tr>
+              <td>time data</td>
+            </tr>
+            
+            <tr>
+              <td>counts</td>
+            </tr>
+          
+            <% for (var element in results) { %>
+              <tr> 
+              <td><%= results[element].name %></td>
+              <% results[element].avail.forEach(function(number) { %>
+              <td><%= number %></td>
+              <% }) %>
+              </tr>
+            <% } %>
+          
+          </table>
+          
+<p></p>
+
             <table class="pollTable">
         <thead>
           <tr>
