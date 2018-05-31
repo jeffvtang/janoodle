@@ -15,24 +15,25 @@ module.exports = function (knex) {
 
     knex.select()
       .from('events')
+      // .where('id', '111a')
       .then(function (result) {
-        console.log(result)
-        // knex.destroy()
+        varA = result
+        const templateVars = {
+          varA: varA
+        }
+
+        return res.render('index.ejs', templateVars);
       })
       .catch(function (err) {
         console.log(err)
-        // knex.destroy()
       })
 
-    if (req.session.eventTitle) {
-      const templateVars = { eventTitle: req.session.eventTitle };
-
-      return res.render('index.ejs', templateVars);
-    } else {
-      return res.render('index.ejs');
-    }
-    console.log(req.session);
-    res.render('index.ejs');
+    // if (req.session.eventTitle) {
+    // } else {
+    //   return res.render('index.ejs');
+    // }
+    // console.log(req.session);
+    // res.render('index.ejs');
   });
 
   makePollAdmin.post('/create', (req, res) => {
