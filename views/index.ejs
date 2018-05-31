@@ -29,9 +29,9 @@
   <h1 id='welcome'>Welcome to JANoodle!</h1>
   <p class='desc-text'>Scheduling events made easy.</p>
   <span>
-    <form>
-      <textarea id='eventName' placeholder='What are you planning?' name="eventTitle"></textarea>
-      <button type="submit" class="btn btn-primary btn-lg"  method="post" formaction="/polls">Create JANoodle poll!</button>
+    <form action="/create" method="POST">
+      <input id='eventName' placeholder='What are you planning?' name="eventTitle"></input>
+      <button type="submit" class="btn btn-primary" >Create JANoodle poll!</button>
     </form>
     <img class='screenshot' src=http://www.retailhabitatsdesign.com/wp-content/uploads/2017/05/Test-Computer-Key-by-Stuart-Miles.jpg></img>
 </body>
