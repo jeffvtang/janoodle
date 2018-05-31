@@ -20,36 +20,18 @@
   <!-- FONT -->
   <link href="https://fonts.googleapis.com/css?family=Song+Myung" rel="stylesheet">
 
-<<<<<<< HEAD
-  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/app.js"></script>
-  <title>JANoodle!</title>
+<!--CSS file (default YUI Sam Skin) -->
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/calendar/assets/skins/sam/calendar.css">
+
+<!-- Dependencies -->
+<script src="http://yui.yahooapis.com/2.9.0/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+
+<!-- Source file -->
+<script src="http://yui.yahooapis.com/2.9.0/build/calendar/calendar-min.js"></script>
 </head>
 
-<body>
-  <section id='input container'>
-    <article>
-      <header>
-        <p class='headerText'> JANoodle</p>
-      </header>
-      <h2>Event Details</h2>
-      <p class="forms">
-        <form action="/poll" method="POST">
-          <input name="eventTitle" type='text' placeholder='event name' value="<%=eventTitle%>" />
-          <input name="eventStartDate" type='text' placeholder='start date'>
-          <input name="eventEndDate" type='text' placeholder='end date'>
-          <input name="eventDescription" type='text' placeholder='Description'>
-          <input name="eventCreatorName" type='text' placeholder="What's your name?">
-          <input name="eventCreatorEmail"type='text' placeholder='Enter your email please'>
-          <button type="submit" class='continue'>Submit my poll</button>
-        </form>
-      </p>
 
-      <footer>
-      </footer>
-    </article>
-  </section>
-=======
+
   <body>
     <section id='forms-container'>
     <article >
@@ -69,13 +51,19 @@
                 <input name='creatorName' class="forms" type='text' placeholder="What's your name?">
                 <br>
                 <input name='creatorEmail' class="forms" type='text' placeholder='Enter your email please'>
-        </form>
-        </div>
+            </form>
+          </div>
+          <div class="yui-skin-sam">
+            <div id="cal1Container"></div>
+            <script>
+            var cal1 = new YAHOO.widget.Calendar("cal1Container");
+            cal1.render();
+            </script>
+          </div>
           <footer>
-            <button class='submit'>Submit my poll</button>
+            <button type='submit' class='submit'>Submit my poll</button>
           </footer>
         </article>
     </section>
->>>>>>> 6ddbdd1583dee3744e9772071dbdcf2254fe0742
 
 </body>

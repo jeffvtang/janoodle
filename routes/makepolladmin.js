@@ -55,7 +55,7 @@ module.exports = function (knex) {
     //   return res.render('index.ejs');
     // }
     // console.log(req.session);
-    // res.render('index.ejs');
+     res.render('index.ejs');
   });
 
   makePollAdmin.post('/create', (req, res) => {
