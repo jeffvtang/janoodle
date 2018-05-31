@@ -13,14 +13,24 @@ module.exports = function (knex) {
     //     console.log(err)
     //   });  
 
-    knex.select()
-      .from('events')
-      // .where('id', '111a')
+//     knex.select()
+//       .from('attendees')
+//       .join('events', 'attendees.event_id', '=', 'events.id')
+//       .where('events.id', '111a')
+// select attendees.name FROM events
+// join attendees on (events.id = attendees.event_id)
+// where events.id = '111a';
+
+    knex.select('attendees.name')
+    .from('events')
+    .join('attendees', 'events.id', '=', 'attendees.event_id')
+    .where('events.id', '111a')
       .then(function (result) {
-        varA = result
+        attendeeNames = result
         const templateVars = {
-          varA: varA
+          attendeeNames: attendeeNames
         }
+        console.log (attendeeNames)
 
         return res.render('index.ejs', templateVars);
       })
