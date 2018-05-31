@@ -47,8 +47,8 @@ app.use(
 );
 app.use(express.static('public'));
 
-const DataHelpers = require('./util/data-helpers.js')(knex);
-const makePollAdmin = require('./routes/makepolladmin')(DataHelpers);
+// const DataHelpers = require('./util/data-helpers.js')(knex);
+const makePollAdmin = require('./routes/makepolladmin')(knex);
 
 // Mount all resource routes
 //app.use("/api/users", usersRoutes(knex));
@@ -58,24 +58,24 @@ app.listen(PORT, () => {
   console.log('Example app listening on port ' + PORT);
 });
 
-function returnString(err, output) {
-  if (err) {
-    return console.error("Connection Error", err);
-  }
-  output.forEach(function (arrayitem)  {
-    console.log(arrayitem)
-  })
-  // for (let i = 0; i < output.length; i++) {
-  //   console.log("- " + (i + 1) + ":", output[i].first_name, output[i].last_name + ", born '" + output[i].birthdate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }) + "'")
-  // }
-  knex.destroy()
-}
+// function returnString(err, output) {
+//   if (err) {
+//     return console.error("Connection Error", err);
+//   }
+//   output.forEach(function (arrayitem)  {
+//     console.log(arrayitem)
+//   })
+//   // for (let i = 0; i < output.length; i++) {
+//   //   console.log("- " + (i + 1) + ":", output[i].first_name, output[i].last_name + ", born '" + output[i].birthdate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }) + "'")
+//   // }
+//   knex.destroy()
+// }
 
-knex.select()
-.from('events')
-.then(function (rows) {
-  returnString(null, rows)
-})
-.catch(function (err) {
-  returnString(err)
-});
+// knex.select()
+// .from('events')
+// .then(function (rows) {
+//   returnString(null, rows)
+// })
+// .catch(function (err) {
+//   returnString(err)
+// });
