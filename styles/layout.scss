@@ -9,11 +9,13 @@ body {
     font-size:4em;
     margin-bottom: 0.25em;
   }
+
   p.desc-text {
     color: white;
     font-size: 2em;
   }
-  textarea#eventName {
+
+  input#eventName {
     border-radius: 7px;
     width: 33%;
     font-size: 1.5em;
@@ -21,11 +23,28 @@ body {
     vertical-align: top;
     line-height: 2.2;
   }
+  h1#howItWorks {
+    font-size:3em;
+
+  }
+
+  p#info {
+    font-size: 2em;
+
+  }
+
+  div#homepageText {
+    background-color: #086788;
+    color: white;
+  }
+
+
   button#poll {
     border-radius: 7px;
     border: 0;
     display:inline-block;
-    background-color: #f07f5d;
+    background-color: #f8333c;
+    //background-color: #f07f5d;
     color: #fff;
     height: 2em;
     font-size: 1.5em;
@@ -33,8 +52,87 @@ body {
     text-align: center;
     vertical-align: middle;
   }
+
   img.screenshot {
     margin: 3em;
     width: 30em;
   }
+
+  section#forms-container {
+    width: 66%;
+    margin: 0 auto;
+    border: solid 1px black;
+    border-radius: 7px;
+
+  header {
+    background-color: #b7add9;
+    border-bottom: solid 1px black;
+
+
+    h3.headerText {
+    text-align:left;
+    padding-left: 0.5em;
+    padding-top: 0.25em;
+    color: white;
+    height: 1.5em;
+    }
+  }
+
+  div.mainArea {
+    margin: 2em;
+    margin: 2em auto;
+    padding: 3em;
+    width: 66%;
+    background-color: white;
+    border: solid 1px;
+    border-radius: 7px;
+
+  input.forms {
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    margin: 1em;
+    }
+  }
+
+
+
+  footer {
+    background-color: #b7add9;
+    border-top: solid 1px black;
+    button.submit {
+      background-color: #f8333c;
+      height: 3em;
+      padding: 5px;
+      margin: 0.5em 0em;
+      margin-left: 83%;
+      color: white;
+      border: 0;
+    }
+  }
+  }
+  table.pollTable, th, td {
+    border: 1px solid #d3d3d3;
+    font-size: 100%;
+    width: 90%
+    }
+
+
+    i.fas.fa-check {
+      color: red
+  }
+
+  i.fas.fa-check:hover {
+      color: orange;
+  }
+
+  i.toggle {
+      color: green;
+  }
+div.addRow {
+  border: 0;
+background-color: white;
+color: #06c696;
+  }
 }
+
