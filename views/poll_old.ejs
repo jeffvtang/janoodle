@@ -32,9 +32,7 @@
             <h3 class='headerText'> JANoodle</h3>
           </header>
              <div class =information>
-                <h4>Share this page with your friends: </h4>
-                <h4><a href="http://localhost:8080/poll/<%=eventInfo[0].id%>">http://localhost:8080/poll/<%=eventInfo[0].id%></a>
-                </h4>
+                <h1>Email the link up top to any friends you want to have at this event</h1> </div>
              <div class ='mainArea'>
             <h2><%=eventInfo[0].name%></h2>
             <h3><%=eventInfo[0].description%></h3>
@@ -82,7 +80,45 @@
             <% } %>
             
             </table>
-          
+            
+<p></p>
+
+            <table class="pollTable">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Date 1</th>
+            <th>Date 2</th>
+            <th>Date 3</th>
+          </tr>
+
+          <tr>
+            <td id='totalCounter'>
+                # participants
+                <div class="addRow"><i class="fas fa-plus"></i></div>
+            </td>
+            <td><i class="fas fa-check"></i></td>
+            <td><i class="fas fa-check"></i>#ofticks</td>
+            <td><i class="fas fa-check"></i>#ofticks</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>user 1</td>
+            <td><i class="fas fa-check"></i></td>
+            <td><i class="fas fa-check"></i></td>
+            <td><i class="fas fa-check"></i></td>
+          </tr>
+          <tr>
+            <td>user 2</td>
+            <td><i class="fas fa-check"></i></td>
+            <td><i class="fas fa-check"></i></td>
+            <td><i class="fas fa-check"></i></td>
+             </tr>
+        </tbody>
+      </table>
+
+        </div>
           <footer>
           </footer>
     </section>

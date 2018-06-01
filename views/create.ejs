@@ -20,36 +20,11 @@
   <!-- FONT -->
   <link href="https://fonts.googleapis.com/css?family=Song+Myung" rel="stylesheet">
 
-<<<<<<< HEAD
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
   <title>JANoodle!</title>
 </head>
 
-<body>
-  <section id='input container'>
-    <article>
-      <header>
-        <p class='headerText'> JANoodle</p>
-      </header>
-      <h2>Event Details</h2>
-      <p class="forms">
-        <form action="/poll" method="POST">
-          <input name="eventTitle" type='text' placeholder='event name' value="<%=eventTitle%>" />
-          <input name="eventStartDate" type='text' placeholder='start date'>
-          <input name="eventEndDate" type='text' placeholder='end date'>
-          <input name="eventDescription" type='text' placeholder='Description'>
-          <input name="eventCreatorName" type='text' placeholder="What's your name?">
-          <input name="eventCreatorEmail"type='text' placeholder='Enter your email please'>
-          <button type="submit" class='continue'>Submit my poll</button>
-        </form>
-      </p>
-
-      <footer>
-      </footer>
-    </article>
-  </section>
-=======
   <body>
     <section id='forms-container'>
     <article >
@@ -59,23 +34,26 @@
 
           <div class ='mainArea'>
             <h2>Event Details</h2>
-            <form class='input-data'>
-                <input name="eventTitle" class='forms' type='text' placeholder='event name' value= "<%=eventTitle%>" />
+            <form action="/poll" method="POST">
+                <input name="eventName" class='forms' type='text' placeholder='event name' value= "<%=eventTitle%>" />
                 <br>
-                <input name='date1' class="forms" type='text' placeholder='Date and Time'>
+                <input name='eventStartDate' class="forms" type='date' placeholder='Date'>
+                <input name='eventEndDate' class="forms" type='date' placeholder='Date'>
                 <br>
-                <input name='location' class="forms" type='text' placeholder='Location'>
+                <input name='eventDescription' class="forms" type='text' placeholder='Description'>
                 <br>
-                <input name='creatorName' class="forms" type='text' placeholder="What's your name?">
+                <input name='ceatorName' class="forms" type='text' placeholder="What's your name?">
                 <br>
-                <input name='creatorEmail' class="forms" type='text' placeholder='Enter your email please'>
-        </form>
+                <input name='creatorEmail' class="forms" type='email' placeholder="What's your email?">
+                <br>
+                <button methodclass='submit'>Submit my poll</button>
+                </form>
+
         </div>
           <footer>
-            <button class='submit'>Submit my poll</button>
+          
           </footer>
         </article>
     </section>
->>>>>>> 6ddbdd1583dee3744e9772071dbdcf2254fe0742
 
 </body>
