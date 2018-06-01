@@ -10,6 +10,10 @@ function groupByID(objectArray, property) {
     }
     acc[key].name = obj.name
     acc[key].id = obj.id
+    if (!acc[key].timeID) {
+      acc[key].timeID = []
+    }
+    acc[key].timeID.push(obj.timeID)
     if (!acc[key].avail) {
       acc[key].avail = []
     }
@@ -67,7 +71,10 @@ module.exports = function (knex) {
 
   makePollAdmin.get('/poll/:id', (req, res) => {
     const event_url = req.params.id;
-    knex.select('attendees.id AS id', 'attendees.name AS name', 'is_available AS avail')
+
+
+
+    knex.select('attendees.id AS id', 'attendees.name AS name', 'is_available AS avail', 'events.id AS e.id', 'events.name AS e.name', 'times.id AS timeID')
       // knex.select()
       .from('availabilities')
       .join('attendees', 'attendees.id', '=', 'availabilities.attendee_id')
@@ -75,38 +82,33 @@ module.exports = function (knex) {
       .join('times', 'times.id', '=', 'availabilities.time_id')
       .where('events.id', event_url)
       .then(function (query1) {
-        // console.log(query1.length)
-        if (query1 == []) {
-          console.log('NOT WORKING')
-        } else {
-          var results = groupByID(query1, 'id');
-          // console.log(results)
-          knex.select('times.id AS id', knex.raw(`sum(case when is_available = 't' then 1 else 0 end) as count`), 'start_time AS start', 'end_time AS end')
-            .from('availabilities')
-            .join('times', 'time_id', '=', 'times.id')
-            .where('event_id', event_url)
-            .groupBy('times.id')
-            .orderBy('times.id')
-            .then(function (query2) {
-              console.log (query2.length)
-              if (query2.length === 0){ // a functional doodle should always have times available, otherwise return a bad error
-                return res.sendStatus(400) 
-              }
-              var results2 = query2
-              knex.select()
-                .from('events')
-                .where('id', event_url)
-                .then(function (query3) {
-                  const templateVars = {
-                    results: results,
-                    results2: results2,
-                    results3: query3
-                  }
-                  return res.render('poll.ejs', templateVars);
-                })
+        console.log(query1)
+        var results = groupByID(query1, 'id');
+        console.log(results)
+        knex.select('times.id AS id', knex.raw(`sum(case when is_available = 't' then 1 else 0 end) as count`), 'start_time AS start', 'end_time AS end')
+          .from('availabilities')
+          .join('times', 'time_id', '=', 'times.id')
+          .where('event_id', event_url)
+          .groupBy('times.id')
+          .orderBy('times.id')
+          .then(function (query2) {
+            // console.log(query2.length)
+            if (query2.length === 0) { // a functional doodle should always have times available, otherwise return a bad error
+              return res.sendStatus(400)
             }
-          )
-        }
+            var results2 = query2
+            knex.select()
+              .from('events')
+              .where('id', event_url)
+              .then(function (query3) {
+                const templateVars = {
+                  results: results,
+                  results2: results2,
+                  results3: query3
+                }
+                return res.render('poll.ejs', templateVars);
+              })
+          })
       })
       .catch(function (err) {
         console.log(err)
