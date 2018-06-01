@@ -93,18 +93,18 @@ module.exports = function (knex) {
         }
       })
       .then(function (x) {
-        knex.select('times.id AS id', knex.raw(`sum(case when is_available = 't' then 1 else 0 end) as count`), 'start_time AS start', 'end_time AS end')
+        return knex.select('times.id AS id', knex.raw(`sum(case when is_available = 't' then 1 else 0 end) as count`), 'start_time AS start', 'end_time AS end')
           .from('availabilities')
           .join('times', 'time_id', '=', 'times.id')
           .where('event_id', event_url)
           .groupBy('times.id')
           .orderBy('times.id')
-          .then(function (timeQuery) {
-            templateVars.timeInfo = timeQuery
-          })
+      })
+      .then(function (timeQuery) {
+        templateVars.timeInfo = timeQuery
       })
       .then(function (y) {
-        knex.select('attendees.id AS id', 'attendees.name AS name', 'is_available AS avail', 'events.id AS e.id', 'events.name AS e.name', 'times.id AS timeID')
+        return knex.select('attendees.id AS id', 'attendees.name AS name', 'is_available AS avail', 'events.id AS e.id', 'events.name AS e.name', 'times.id AS timeID')
           .from('availabilities')
           .join('attendees', 'attendees.id', '=', 'availabilities.attendee_id')
           .join('events', 'events.id', '=', 'attendees.event_id')
@@ -112,11 +112,11 @@ module.exports = function (knex) {
           .where('events.id', event_url)
           .orderBy('attendees.id', 'times.id')
           .orderBy('times.id')
-          .then(function (attendeeQuery) {
-            templateVars.attendeeInfo = groupByID(attendeeQuery, 'id')
-            // console.log(templateVars.attendeeInfo)
-            return res.render('poll.ejs', templateVars);
-          })
+      })
+      .then(function (attendeeQuery) {
+        templateVars.attendeeInfo = groupByID(attendeeQuery, 'id')
+        // console.log(templateVars)
+        return res.render('poll.ejs', templateVars);
       })
       .catch(function (err) {
         console.log(err)
