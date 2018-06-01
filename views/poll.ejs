@@ -76,7 +76,7 @@
       </td>
     <% timeInfo.forEach(function(timeSlot) { %>
       <%=console.log('this is the avail info', timeSlot.id) %>
-      <td><input type="checkbox" id="<%=timeSlot.id%>" name="is_available" value="true"> </td>
+      <td><input type="checkbox" id="<%=timeSlot.id%>" name="is_available[]" value="<%=timeSlot.id%>"> </td>
     <% }) %>
 
     </tr>
