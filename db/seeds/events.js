@@ -118,7 +118,10 @@ exports.seed = function (knex, Promise) {
       {id: 11, attendee_id: 3, time_id: 3, is_available: 't'},
       {id: 12, attendee_id: 3, time_id: 4, is_available: 't'}, //user3 available for timeslot 3 and 4, all availabilities related to event 111a in hardcoded data
       {id: 13, attendee_id: 4, time_id: 5 },
-      {id: 14, attendee_id: 7, time_id: 9 },
+      {id: 14, attendee_id: 4, time_id: 6 },
+      {id: 15, attendee_id: 4, time_id: 7 },
+      {id: 16, attendee_id: 7, time_id: 8 },
+      {id: 17, attendee_id: 7, time_id: 9, is_available: 't' },
     ]);
   }
 
