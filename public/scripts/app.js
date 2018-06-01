@@ -26,7 +26,7 @@ $(document).ready(function() {
     const userid = ids[0];
     const timeid = ids[1];
     $.ajax({
-      url: `/poll/${event_url}/true`,
+      url: `/poll/${event_url}/toggle`,
       method: 'post',
       data: {
         userid,

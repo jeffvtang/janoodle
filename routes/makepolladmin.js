@@ -161,9 +161,10 @@ module.exports = function(knex) {
       });
   });
 
-  makePollAdmin.post('/poll/:id/true', (req, res) => {
-    console.log(req.body)
-    console.log(req.body.userid);
+  makePollAdmin.post('/poll/:id/toggle', (req, res) => {
+    console.log('console log1', req.body)
+    console.log('console log2', req.body.userid);
+    console.log('console log2', req.body.timeid);
     res.send(JSON.stringify(req.body))
   });
   return makePollAdmin;
