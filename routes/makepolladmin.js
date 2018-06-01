@@ -77,10 +77,11 @@ module.exports = function (knex) {
       .then(function (query1) {
         // results = result
         var results = groupByID(query1, 'id');
-        knex.select('times.id AS id', 'start_time AS start', 'end_time AS end').count('is_available')
+        knex.select('times.id AS id', knex.raw(`sum(case when is_available = 't' then 1 else 0 end) as count`),'start_time AS start', 'end_time AS end')
+        // knex.select('times.id AS id', knex.raw(`(case when patients.gender = 1 then 'F' else 'M' end) as gender`),'start_time AS start', 'end_time AS end')
           .from('availabilities')
           .join('times', 'time_id', '=', 'times.id')
-          .where('event_id', '111a').andWhere('is_available', 't')
+          .where('event_id', '111a')
           .groupBy('times.id')
           .orderBy('times.id')
           // SELECT times.id, COUNT(is_available), start_time, end_time
