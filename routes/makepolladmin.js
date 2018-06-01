@@ -71,35 +71,27 @@ module.exports = function(knex) {
   });
 
 
-  // makePollAdmin.post('/poll', (req, res) => {
-  //   const urlId = crypto.randomBytes(4).toString('hex');
-
-  //   const eventName = req.body.eventName;
-  //   const eventStartDate = req.body.eventStartDate;
-  //   const eventEndDate = req.body.eventEndDate;
-  //   const eventDescription = req.body.eventDescription;
-  //   const creatorName = req.body.ceatorName;
-  //   const creatorEmail = req.body.creatorEmail;
-
-  //   knex('attendees')
-  //     .insert({
-  //       name: req.body.nameInput
-  //       email: req.body.emailInput
-        
-  //     })
-  //     .returning('id')
-  //     .then(function (id) {
-  //       return knex('availabilties').insert({
-  //         attendee_id: id
-  //         time_id: *timeID,
-  //         is_available: *avail
-  //       });
-  //     })
-  //     .then(function (x) {
-  //       res.redirect(`/poll/${urlId}`);
-  //     })
-  //   //res.render('poll.ejs')
-  // });
+  makePollAdmin.post('/poll/add', (req, res) => {
+    
+    knex('attendees')
+      .insert({
+        name: req.body.nameInput,
+        email: req.body.emailInput,
+        event_id: event_url
+      })
+      .returning('id')
+      .then(function (id) {
+        return knex('availabilties').insert({
+          attendee_id: id,
+          time_id: ,
+          is_available: *avail
+        });
+      })
+      .then(function (x) {
+        res.redirect(`/poll/${event_url}`);
+      })
+    //res.render('poll.ejs')
+  });
 
   makePollAdmin.get('/poll/:id', (req, res) => {
     const event_url = req.params.id;
