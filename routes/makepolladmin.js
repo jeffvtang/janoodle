@@ -79,16 +79,18 @@ module.exports = function (knex) {
 
   makePollAdmin.get('/poll/:id', (req, res) => {
     const event_url = req.params.id;
-
+    let templateVars = {}
     knex.select()
       .from('events')
       .where('id', event_url)
       .then(function (eventQuery) {
-        if (eventQuery.length === 0) { // if the query for events returns nothings matching that id
+        if (eventQuery.length === 0) { // if the no results from the event query, return an error
           return res.sendStatus(400)
         }
-        eventInfo = eventQuery
-        console.log(eventInfo)
+        templateVars.eventInfo = eventQuery
+        // console.log(eventInfo)
+      })
+      .then(function (x) {
         knex.select('times.id AS id', knex.raw(`sum(case when is_available = 't' then 1 else 0 end) as count`), 'start_time AS start', 'end_time AS end')
           .from('availabilities')
           .join('times', 'time_id', '=', 'times.id')
@@ -96,27 +98,30 @@ module.exports = function (knex) {
           .groupBy('times.id')
           .orderBy('times.id')
           .then(function (timeQuery) {
-            timeInfo = timeQuery
-            knex.select('attendees.id AS id', 'attendees.name AS name', 'is_available AS avail', 'events.id AS e.id', 'events.name AS e.name', 'times.id AS timeID')
-              .from('availabilities')
-              .join('attendees', 'attendees.id', '=', 'availabilities.attendee_id')
-              .join('events', 'events.id', '=', 'attendees.event_id')
-              .join('times', 'times.id', '=', 'availabilities.time_id')
-              .where('events.id', event_url)
-              .orderBy('attendees.id', 'times.id')
-              .orderBy('times.id')
-              .then(function (attendeeQuery) {
-                // console.log(attendeeQuery)
-                const templateVars = {
-                  results: groupByID(attendeeQuery, 'id'),
-                  results2: timeInfo,
-                  results3: eventInfo
-                }
-                return res.render('poll.ejs', templateVars);
-              })
+            templateVars.timeInfo = timeQuery
           })
-
       })
+      .then(function (y) {
+        knex.select('attendees.id AS id', 'attendees.name AS name', 'is_available AS avail', 'events.id AS e.id', 'events.name AS e.name', 'times.id AS timeID')
+          .from('availabilities')
+          .join('attendees', 'attendees.id', '=', 'availabilities.attendee_id')
+          .join('events', 'events.id', '=', 'attendees.event_id')
+          .join('times', 'times.id', '=', 'availabilities.time_id')
+          .where('events.id', event_url)
+          .orderBy('attendees.id', 'times.id')
+          .orderBy('times.id')
+          .then(function (attendeeQuery) {
+            templateVars.attendeeInfo = groupByID(attendeeQuery, 'id')
+            // console.log(templateVars.attendeeInfo)
+            return res.render('poll.ejs', templateVars);
+          })
+      })
+      // console.log(attendeeQuery)
+      // const templateVars = {
+      //   eventInfo: eventInfo,
+      //   timeInfo: timeInfo,
+      //   attendeeInfo: groupByID(attendeeQuery, 'id'),
+      // }
       .catch(function (err) {
         console.log(err)
       })
@@ -124,6 +129,52 @@ module.exports = function (knex) {
   return makePollAdmin;
 };
 
+//   makePollAdmin.get('/poll/:id', (req, res) => {
+//     const event_url = req.params.id;
+
+//     knex.select()
+//       .from('events')
+//       .where('id', event_url)
+//       .then(function (eventQuery) {
+//         if (eventQuery.length === 0) { // if the no results from the event query, return an error
+//           return res.sendStatus(400)
+//         }
+//         eventInfo = eventQuery
+//         // console.log(eventInfo)
+//         knex.select('times.id AS id', knex.raw(`sum(case when is_available = 't' then 1 else 0 end) as count`), 'start_time AS start', 'end_time AS end')
+//           .from('availabilities')
+//           .join('times', 'time_id', '=', 'times.id')
+//           .where('event_id', event_url)
+//           .groupBy('times.id')
+//           .orderBy('times.id')
+//           .then(function (timeQuery) {
+//             timeInfo = timeQuery
+//             knex.select('attendees.id AS id', 'attendees.name AS name', 'is_available AS avail', 'events.id AS e.id', 'events.name AS e.name', 'times.id AS timeID')
+//               .from('availabilities')
+//               .join('attendees', 'attendees.id', '=', 'availabilities.attendee_id')
+//               .join('events', 'events.id', '=', 'attendees.event_id')
+//               .join('times', 'times.id', '=', 'availabilities.time_id')
+//               .where('events.id', event_url)
+//               .orderBy('attendees.id', 'times.id')
+//               .orderBy('times.id')
+//               .then(function (attendeeQuery) {
+//                 // console.log(attendeeQuery)
+//                 const templateVars = {
+//                   eventInfo: eventInfo,
+//                   timeInfo: timeInfo,
+//                   attendeeInfo: groupByID(attendeeQuery, 'id'),
+//                 }
+//                 return res.render('poll.ejs', templateVars);
+//               })
+//           })
+
+//       })
+//       .catch(function (err) {
+//         console.log(err)
+//       })
+//   })
+//   return makePollAdmin;
+// };
 
 
 
