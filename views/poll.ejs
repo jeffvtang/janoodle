@@ -34,11 +34,12 @@
              <div class =information>
                 <h1>Email the link up top to any friends you want to have at this event</h1> </div>
              <div class ='mainArea'>
+               <%= event_url %>
             <h2><%=eventInfo[0].name%></h2>
             <h3><%=eventInfo[0].description%></h3>
             <h3><%=eventInfo[0].creator_name%> - <%=eventInfo[0].creator_email%></h3>
 
-            <table>
+            <table id="availabilities">
             <tr>
               <td>time data</td>
               <% timeInfo.forEach(function(timeSlot) { %>
@@ -61,7 +62,7 @@
             <td class="user"><%= attendeeInfo[element].name %></td>
             <% attendeeInfo[element].avail.forEach(function(number) { %>
             <% if (number == true)   {%>
-            <td> <i data-user="<%= attendeeInfo[element].name %>" data-id="<%= attendeeInfo[element].id %>-<%= attendeeInfo[element].timeID[element] %>" data-date="<%=  attendeeInfo[element].timeID[0] %>"  class="fas fa-check trueHandler"></i><%= number %></td>
+            <td> <i data-user="<%= attendeeInfo[element].name %>" data-event-url="<%=event_url%>" data-id="<%= attendeeInfo[element].id %>-<%= attendeeInfo[element].timeID[element] %>" data-date="<%=  attendeeInfo[element].timeID[0] %>"  class="fas fa-check trueHandler"></i><%= number %></td>
             <% }else if (number == false) { %>
             <td> <i data-id="<%= attendeeInfo[element].id %>-<%= attendeeInfo[element].timeID[element] %>" data-date="<%=  attendeeInfo[element].id %>"  class="fas fa-times falseHandler"></i><%= number %></td>
             <%}}) %>

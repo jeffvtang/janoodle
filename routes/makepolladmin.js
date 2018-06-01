@@ -125,12 +125,19 @@ module.exports = function(knex) {
       })
       .then(function(attendeeQuery) {
         templateVars.attendeeInfo = groupByID(attendeeQuery, 'id');
+        templateVars.event_url = event_url;
         // console.log(templateVars)
         return res.render('poll.ejs', templateVars);
       })
       .catch(function(err) {
         console.log(err);
       });
+  });
+
+  makePollAdmin.post('/poll/:id/true', (req, res) => {
+    console.log(req.body)
+    console.log(req.body.userid);
+    res.send(JSON.stringify(req.body))
   });
   return makePollAdmin;
 };
