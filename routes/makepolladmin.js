@@ -84,7 +84,6 @@ module.exports = function (knex) {
       .from('events')
       .where('id', event_url)
       .then(function (eventQuery) {
-        console.log(eventQuery.length)
         if (eventQuery.length === 0) { // if the no results from the event query, return an error
           res.sendStatus(400)
           return Promise.reject('Invalid URL entered')
