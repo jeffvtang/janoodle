@@ -56,16 +56,26 @@
             <td id='totalCounter'>
                 <span><i class="fas fa-plus"></i></span> New Participant
             </td>
-            <%=console.log('this is the avail info', availInfo) %>
             <% if (availInfo.length > 1) { %>
-              <% availInfo.forEach(function(slotSum) { %>
-                <td><i class="fas fa-check trueHandler"></i><%=slotSum.count%></td>
+            <% availInfo.forEach(function(slotSum) { %>
+            <td><i class="fas fa-check trueHandler"></i><%=slotSum.count%></td>
             <% })} else if (availInfo.length == 0) { %>
             <% timeInfo.forEach(function(timeSlot) { %>
-
-              <td><i class="fas fa-check trueHandler"></i>0</td>
+            <%=console.log('this is the avail info', timeSlot.id) %>
+              <td><i data-id=<%=timeSlot.id%> class="fas fa-check trueHandler"></i>0</td>
             <% }) %>
             <% } %>
+
+            </tr>
+
+            <tr>
+            <td id='totalCounter'>
+              <input name="name" class='forms' type='text' placeholder='name'/>
+            </td>
+            <% timeInfo.forEach(function(timeSlot) { %>
+            <%=console.log('this is the avail info', timeSlot.id) %>
+              <td><i data-id=<%=timeSlot.id%></i></td>
+            <% }) %>
 
             </tr>
                       

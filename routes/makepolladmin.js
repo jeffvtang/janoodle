@@ -44,35 +44,67 @@ module.exports = function (knex) {
 
 
   makePollAdmin.post('/poll', (req, res) => {
-    const urlId = crypto.randomBytes(10).toString('hex');
+    const urlId = crypto.randomBytes(4).toString('hex');
 
-    const eventName = req.body.eventTitle;
+    const eventName = req.body.eventName;
     const eventStartDate = req.body.eventStartDate;
     const eventEndDate = req.body.eventEndDate;
     const eventDescription = req.body.eventDescription;
-    const eventCreatorName = req.body.eventCreatorEmail;
-    const eventCreatorEmail = req.body.eventCreatorEmail;
+    const creatorName = req.body.ceatorName;
+    const creatorEmail = req.body.creatorEmail;
 
     knex('events')
       .insert({
         id: urlId,
         name: eventName,
         description: eventDescription,
-        creator_name: eventCreatorName,
-        creator_email: eventCreatorEmail,
+        creator_name: creatorName,
+        creator_email: creatorEmail,
       })
       .returning('id')
       .then(function (response) {
         return knex('times').insert({
-          event_id: response[0],
+          event_id: urlId,
           start_time: eventStartDate,
           end_time: eventEndDate,
         });
         console.log(response);
-      });
-
+      })
+      .then(function (x) {
+        res.redirect(`/poll/${urlId}`);
+      })
     //res.render('poll.ejs')
-    res.redirect(`/poll/${urlId}`);
+  });
+
+
+  makePollAdmin.post('/poll', (req, res) => {
+    const urlId = crypto.randomBytes(4).toString('hex');
+
+    const eventName = req.body.eventName;
+    const eventStartDate = req.body.eventStartDate;
+    const eventEndDate = req.body.eventEndDate;
+    const eventDescription = req.body.eventDescription;
+    const creatorName = req.body.ceatorName;
+    const creatorEmail = req.body.creatorEmail;
+
+    knex('attendees')
+      .insert({
+        name: req.body.nameInput
+        email: req.body.emailInput
+        
+      })
+      .returning('id')
+      .then(function (id) {
+        return knex('availabilties').insert({
+          attendee_id: id
+          time_id: *timeID,
+          is_available: *avail
+        });
+      })
+      .then(function (x) {
+        res.redirect(`/poll/${urlId}`);
+      })
+    //res.render('poll.ejs')
   });
 
 
@@ -92,10 +124,9 @@ module.exports = function (knex) {
         }
       })
       .then(function (x) {
-        return knex.select('times.id AS id', knex.raw(`sum(case when is_available = 't' then 1 else 0 end) as count`), 'start_time AS start', 'end_time AS end')
-          .from('availabilities')
-          .join('times', 'time_id', '=', 'times.id')
-          .where('event_id', event_url)
+        return knex.select('times.id AS id', 'start_time AS start', 'end_time AS end')
+          .from('times')
+          .where('event_id', '=', event_url)
           .groupBy('times.id')
           .orderBy('times.id')
       })
@@ -103,6 +134,18 @@ module.exports = function (knex) {
         templateVars.timeInfo = timeQuery
       })
       .then(function (y) {
+        return knex.select(knex.raw(`sum(case when is_available = 't' then 1 else 0 end) as count`))
+          .from('availabilities')
+          .join('times', 'time_id', '=', 'times.id')
+          .where('event_id', '=', event_url)
+          .groupBy('times.id')
+          .orderBy('times.id')
+      })
+      .then(function (availQuery) {
+        console.log('time', availQuery)
+        templateVars.availInfo = availQuery
+      })
+      .then(function (z) {
         return knex.select('attendees.id AS id', 'attendees.name AS name', 'is_available AS avail', 'events.id AS e.id', 'events.name AS e.name', 'times.id AS timeID')
           .from('availabilities')
           .join('attendees', 'attendees.id', '=', 'availabilities.attendee_id')
