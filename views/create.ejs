@@ -20,10 +20,17 @@
   <!-- FONT -->
   <link href="https://fonts.googleapis.com/css?family=Song+Myung" rel="stylesheet">
 
-  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/app.js"></script>
-  <title>JANoodle!</title>
+<!--CSS file (default YUI Sam Skin) -->
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/calendar/assets/skins/sam/calendar.css">
+
+<!-- Dependencies -->
+<script src="http://yui.yahooapis.com/2.9.0/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+
+<!-- Source file -->
+<script src="http://yui.yahooapis.com/2.9.0/build/calendar/calendar-min.js"></script>
 </head>
+
+
 
   <body>
     <section id='forms-container'>
@@ -46,13 +53,10 @@
                 <br>
                 <input name='creatorEmail' class="forms" type='email' placeholder="What's your email?">
                 <br>
-                <button methodclass='submit'>Submit my poll</button>
-                </form>
-
-        </div>
-          <footer>
-          
-          </footer>
+                <button type='submit' class='submit'>Submit my poll</button>
+            </form>
+          </div>
+   
         </article>
     </section>
 
