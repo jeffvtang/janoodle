@@ -84,11 +84,13 @@ module.exports = function (knex) {
       .from('events')
       .where('id', event_url)
       .then(function (eventQuery) {
+        console.log(eventQuery.length)
         if (eventQuery.length === 0) { // if the no results from the event query, return an error
-          return res.sendStatus(400)
+          res.sendStatus(400)
+          return Promise.reject('Invalid URL entered')
+        } else {
+          templateVars.eventInfo = eventQuery
         }
-        templateVars.eventInfo = eventQuery
-        // console.log(eventInfo)
       })
       .then(function (x) {
         knex.select('times.id AS id', knex.raw(`sum(case when is_available = 't' then 1 else 0 end) as count`), 'start_time AS start', 'end_time AS end')
@@ -116,12 +118,6 @@ module.exports = function (knex) {
             return res.render('poll.ejs', templateVars);
           })
       })
-      // console.log(attendeeQuery)
-      // const templateVars = {
-      //   eventInfo: eventInfo,
-      //   timeInfo: timeInfo,
-      //   attendeeInfo: groupByID(attendeeQuery, 'id'),
-      // }
       .catch(function (err) {
         console.log(err)
       })
