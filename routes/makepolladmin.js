@@ -64,12 +64,11 @@ module.exports = function(knex) {
         });
         console.log(response);
       })
-      .then(function (x) {
+      .then(function(x) {
         res.redirect(`/poll/${urlId}`);
-      })
+      });
     //res.render('poll.ejs')
   });
-
 
   // makePollAdmin.post('/poll', (req, res) => {
   //   const urlId = crypto.randomBytes(4).toString('hex');
@@ -85,7 +84,7 @@ module.exports = function(knex) {
   //     .insert({
   //       name: req.body.nameInput
   //       email: req.body.emailInput
-        
+
   //     })
   //     .returning('id')
   //     .then(function (id) {
@@ -118,8 +117,9 @@ module.exports = function(knex) {
           templateVars.eventInfo = eventQuery;
         }
       })
-      .then(function (x) {
-        return knex.select('times.id AS id', 'start_time AS start', 'end_time AS end')
+      .then(function(x) {
+        return knex
+          .select('times.id AS id', 'start_time AS start', 'end_time AS end')
           .from('times')
           .where('event_id', '=', event_url)
           .groupBy('times.id')
@@ -128,20 +128,33 @@ module.exports = function(knex) {
       .then(function(timeQuery) {
         templateVars.timeInfo = timeQuery;
       })
-      .then(function (y) {
-        return knex.select(knex.raw(`sum(case when is_available = 't' then 1 else 0 end) as count`))
+      .then(function(y) {
+        return knex
+          .select(
+            knex.raw(
+              `sum(case when is_available = 't' then 1 else 0 end) as count`
+            )
+          )
           .from('availabilities')
           .join('times', 'time_id', '=', 'times.id')
           .where('event_id', '=', event_url)
           .groupBy('times.id')
-          .orderBy('times.id')
+          .orderBy('times.id');
       })
-      .then(function (availQuery) {
-        console.log('time', availQuery)
-        templateVars.availInfo = availQuery
+      .then(function(availQuery) {
+        console.log('time', availQuery);
+        templateVars.availInfo = availQuery;
       })
-      .then(function (z) {
-        return knex.select('attendees.id AS id', 'attendees.name AS name', 'is_available AS avail', 'events.id AS e.id', 'events.name AS e.name', 'times.id AS timeID')
+      .then(function(z) {
+        return knex
+          .select(
+            'attendees.id AS id',
+            'attendees.name AS name',
+            'is_available AS avail',
+            'events.id AS e.id',
+            'events.name AS e.name',
+            'times.id AS timeID'
+          )
           .from('availabilities')
           .join('attendees', 'attendees.id', '=', 'availabilities.attendee_id')
           .join('events', 'events.id', '=', 'attendees.event_id')
@@ -162,11 +175,35 @@ module.exports = function(knex) {
   });
 
   makePollAdmin.post('/poll/:id/toggle', (req, res) => {
-    console.log('console log1', req.body)
+    console.log('console log1', req.body);
     console.log('console log2', req.body.userid);
     console.log('console log2', req.body.timeid);
-    res.send(JSON.stringify(req.body))
-  });
+
+    knex('availabilities')
+    .select('is_available')
+      .where('attendee_id', '=', req.body.userid)
+      .andWhere('time_id', '=', req.body.timeid)
+      .then(function(x) {
+        if (x == true){
+          knex('availabilities')
+          .select('is_available')
+            .where('attendee_id', '=', req.body.userid)
+            .andWhere('time_id', '=', req.body.timeid)
+            .update('is_available', 'false')
+        } else if (x == false){
+          knex('availabilities')
+          .select('is_available')
+            .where('attendee_id', '=', req.body.userid)
+            .andWhere('time_id', '=', req.body.timeid)
+            .update('is_available', 'true')
+        }
+      });
+       // .update('is_available', !'is_available')
+       //return res.send(JSON.stringify(req.body)
+//SET is_available = NOT is_available
+      })
+  ;
+
   return makePollAdmin;
 };
 
