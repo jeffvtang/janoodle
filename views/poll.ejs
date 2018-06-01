@@ -34,13 +34,13 @@
              <div class =information>
                 <h1>Email the link up top to any friends you want to have at this event</h1> </div>
              <div class ='mainArea'>
-            <h2>Event Name</h2>
-            <h3>location</h3>
+            <h2><%=results3[0].name%></h2>
+            <h3><%=results3[0].description%></h3>
+            <h3><%=results3[0].creator_name%> - <%=results3[0].creator_email%></h3>
 
             <table>
             <tr>
               <td>time data</td>
-              <% console.log('inside poll', results2) %>
               <% results2.forEach(function(x) { %>
               <td><%= x.start.toLocaleDateString() %> to <%=x.end.toLocaleDateString()%></td>
               <% }) %>
