@@ -40,36 +40,39 @@
 
             <table>
             <tr>
-              <td>time data</td>
+              <td></td>
               <% timeInfo.forEach(function(timeSlot) { %>
               <td><%= timeSlot.start.toLocaleDateString() %> to <%=timeSlot.end.toLocaleDateString()%></td>
               <% }) %>
 
             </tr>
             
+            
+
             <tr>
-              <td>counts</td>
-              <% timeInfo.forEach(function(slotSum) { %>
+            <td id='totalCounter'>
+                <span><i class="fas fa-plus"></i></span> New Participanthttps://doodle.com/poll/evimv7qb4hnhmbwx#table
+            </td>          
+                <% timeInfo.forEach(function(slotSum) { %>
               
-              <td><%=slotSum.count%></td>
+              <td><i class="fas fa-check trueHandler"></i><%=slotSum.count%></td>
               <% }) %>
             </tr>
-          
-            <%=console.log('working', attendeeInfo)%>
+                      
             <% for (var element in attendeeInfo) { %>
             <tr> 
-            <td class="user"><%= attendeeInfo[element].name %></td>
-            <% attendeeInfo[element].avail.forEach(function(number) { %>
-            <% if (number == true)   {%>
-            <td> <i data-user="<%= attendeeInfo[element].name %>" data-id="<%= attendeeInfo[element].id %>-<%= attendeeInfo[element].timeID[element] %>" data-date="<%=  attendeeInfo[element].timeID[0] %>"  class="fas fa-check trueHandler"></i><%= number %></td>
-            <% }else if (number == false) { %>
-            <td> <i data-id="<%= attendeeInfo[element].id %>-<%= attendeeInfo[element].timeID[element] %>" data-date="<%=  attendeeInfo[element].id %>"  class="fas fa-times falseHandler"></i><%= number %></td>
-            <%}}) %>
+              <td class="user"><%= attendeeInfo[element].name %></td>
+              <% attendeeInfo[element].avail.forEach(function(availStatus, i) { %>
+                <% if (availStatus == true)   {%>
+                <td> <i data-id="<%=  attendeeInfo[element].id + '-' + attendeeInfo[element].timeID[i] %>" class="fas fa-check trueHandler"></i></td>
+                <% }else if (availStatus == false) { %>
+                <td> <i data-id="<%=  attendeeInfo[element].id + '-' + attendeeInfo[element].timeID[i] %>" class="fas fa-times falseHandler"></i></td>
+              <%}}) %>
             </tr>
             <% } %>
             
-            
             </table>
+            
 <p></p>
 
             <table class="pollTable">
