@@ -84,31 +84,42 @@ module.exports = function(knex) {
       }
     }
 
-    console.log(time);
-    console.log(avail);
-    console.log(name);
-    console.log(email);
-    console.log(event_url);
+    // console.log(time);
+    // console.log(avail);
+    // console.log(name);
+    // console.log(email);
+    // console.log(event_url);
 
-    // knex('attendees')
-    //   .insert({
-    //     name: req.body.nameInput,
-    //     email: req.body.emailInput,
-    //     event_id: req.params.id
-    //   })
-    //   .returning('id')
-    //   .then(function (id) {
-    //     return knex('availabilties').insert({
-    //       attendee_id: id,
-    //       time_id: time,
-    //       is_available: avail
-    //     });
-    //   })
-    //   .then(function (x) {
-    //     res.redirect(`/poll/${event_url}`);
-    //   })
-    // res.render('poll.ejs')
-  });
+    // time.forEach(function(element, i) {
+      // console.log('id:', name, 'time', element, 'avail:', avail[i])
+      // console.log('1:', element)
+      // console.log('3:', avail[i])
+    // })
+    
+    knex('attendees')
+    .insert({
+      name: req.body.nameInput,
+      email: req.body.emailInput,
+      event_id: req.params.id
+    })
+    .returning('id')
+    .then(function (id) {
+      console.log('id returned:', id)
+      time.forEach(function(element, i) {
+        console.log('time insert:', element)
+        console.log('avail insert:', avail[i])
+        knex('availabilities').insert({
+          attendee_id: id[0],
+          time_id: element,
+          is_available: avail[i]
+        }).then(x => console.log(x))
+      })
+      // res.render('poll.ejs')
+    })
+          .then(function (x) {
+            res.redirect(`/poll/${event_url}`);
+          })
+        })
 
   makePollAdmin.get("/poll/:id", (req, res) => {
     const event_url = req.params.id;
@@ -118,7 +129,7 @@ module.exports = function(knex) {
       .from("events")
       .where("id", event_url)
       .then(function(eventQuery) {
-        console.log(eventQuery.length);
+        // console.log(eventQuery.length);
         if (eventQuery.length === 0) {
           // if the no results from the event query, return an error
           res.sendStatus(400);
