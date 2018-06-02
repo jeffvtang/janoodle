@@ -80,6 +80,8 @@ module.exports = function(knex) {
   });
 
   makePollAdmin.post('/poll/:id/add', (req, res) => {
+    
+    
     let time = [];
     let avail = [];
     let name = req.body.nameInput;
@@ -89,12 +91,15 @@ module.exports = function(knex) {
     for (let element in req.body) {
       if (element != 'nameInput' && element != 'emailInput') {
         time.push(element);
-        avail.push(req.body[element]);
+        if (req.body[element].length == 2){
+        avail.push(true)
+        } else {
+          avail.push(false)
+        }
       }
     }
-    
-    // console.log(time);
-    // console.log(avail);
+    // console.log('full time', time);
+    // console.log('full avail', avail);
     // console.log(name);
     // console.log(email);
     // console.log(event_url);
@@ -115,8 +120,13 @@ module.exports = function(knex) {
       .then(function(id) {
         // console.log('id returned:', id)
         time.forEach(function(element, i) {
-          // console.log('time insert:', element)
-          // console.log('avail insert:', avail[i])
+          console.log('time insert:', element)
+          // console.log('avail insert length:', avail[i].length)
+          if (avail[i].length == 2){
+            let availInsert = true
+          } else {
+            let availInsert = false
+          }
           knex('availabilities')
             .insert({
               attendee_id: id[0],

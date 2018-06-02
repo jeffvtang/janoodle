@@ -1,0 +1,138 @@
+@import "node_modules/bulma/sass/utilities/initial-variables";
+
+@import "node_modules/bulma/bulma";
+
+
+@import url(https://fonts.googleapis.com/css?family=Nunito);
+
+
+body {
+  text-align: center;
+  margin: 0 auto;
+  color:#363636;
+  font-family:Nunito,Segoe UI,Helvetica,Arial,sans-serif
+}
+.create-section {
+background-color: #F2F6FA;
+}
+
+#slideme {
+  display: none;
+}
+
+/*
+body {
+  background-color: #06c696;
+  font-family: 'Song Myung', serif;
+  text-align: center;
+
+  h1#welcome {
+    color: white;
+    font-size:4em;
+    margin-bottom: 0.25em;
+  }
+
+  p.desc-text {
+    color: white;
+    font-size: 2em;
+  }
+
+  input#eventName {
+    border-radius: 7px;
+    width: 33%;
+    font-size: 1.5em;
+    height: 2.5em;
+    vertical-align: top;
+    line-height: 2.2;
+  }
+  h1#howItWorks {
+    font-size:3em;
+
+  }
+
+  p#info {
+    font-size: 2em;
+
+  }
+
+  div#homepageText {
+    background-color: #086788;
+    color: white;
+  }
+
+
+  button#poll {
+    border-radius: 7px;
+    border: 0;
+    display:inline-block;
+    background-color: #f8333c;
+    //background-color: #f07f5d;
+    color: #fff;
+    height: 2em;
+    font-size: 1.5em;
+    margin: 0.5em;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  img.screenshot {
+    margin: 3em;
+    width: 30em;
+  }
+
+  section#forms-container {
+    width: 66%;
+    margin: 0 auto;
+    border: solid 1px black;
+    border-radius: 7px;
+
+  header {
+    background-color: #b7add9;
+    border-bottom: solid 1px black;
+
+
+    h3.headerText {
+    text-align:left;
+    padding-left: 0.5em;
+    padding-top: 0.25em;
+    color: white;
+    height: 1.5em;
+    }
+  }
+
+  div.mainArea {
+    margin: 2em;
+    margin: 2em auto;
+    padding: 3em;
+    width: 66%;
+    background-color: white;
+    border: solid 1px;
+    border-radius: 7px;
+
+  input.forms {
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    margin: 1em;
+    }
+  }
+
+
+  footer {
+   
+    
+  
+  }
+
+}
+  table.pollTable, th, td {
+    border: 1px solid #d3d3d3;
+    font-size: 100%;
+    width: 90%
+    }
+
+
+ 
+  }
+
+*/
