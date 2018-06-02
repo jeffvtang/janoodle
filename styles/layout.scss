@@ -1,8 +1,25 @@
+@import "node_modules/bulma/sass/utilities/initial-variables";
+
+@import "node_modules/bulma/bulma";
+
+
+@import url(https://fonts.googleapis.com/css?family=Nunito);
+
+
+body {
+  text-align: center;
+  margin: 0 auto;
+  color:#363636;
+  font-family:Nunito,Segoe UI,Helvetica,Arial,sans-serif
+}
+.create-section {
+background-color: #F2F6FA;
+}
+/*
 body {
   background-color: #06c696;
   font-family: 'Song Myung', serif;
   text-align: center;
-  margin-top: 10em;
 
   h1#welcome {
     color: white;
@@ -97,19 +114,12 @@ body {
 
 
   footer {
-    background-color: #b7add9;
-    border-top: solid 1px black;
-    button.submit {
-      background-color: #f8333c;
-      height: 3em;
-      padding: 5px;
-      margin: 0.5em 0em;
-      margin-left: 83%;
-      color: white;
-      border: 0;
-    }
+   
+    
+  
   }
-  }
+
+}
   table.pollTable, th, td {
     border: 1px solid #d3d3d3;
     font-size: 100%;
@@ -118,10 +128,6 @@ body {
 
 
  
-div.addRow {
-  border: 0;
-background-color: white;
-color: #06c696;
   }
-}
 
+*/

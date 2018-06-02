@@ -23,6 +23,73 @@
 </head>
 
 <body>
+<<<<<<< HEAD
+
+  <section id='forms-container'>
+    <header>
+      <h3 class='headerText'> JANoodle</h3>
+    </header>
+    <div class=information>
+      <h4>Share this page with your friends: </h4>
+      <h4>
+        <a href="http://localhost:8080/poll/<%=eventInfo[0].id%>">http://localhost:8080/poll/<%=event_url%>
+        </a>
+      </h4>
+      <div class='mainArea'>
+        <h2>
+          <%=eventInfo[0].name%>
+        </h2>
+        <h3>
+          <%=eventInfo[0].description%>
+        </h3>
+        <h3>
+          <%=eventInfo[0].creator_name%> -
+            <%=eventInfo[0].creator_email%>
+        </h3>
+
+        <table id="availabilities">
+          <tr>
+            <td></td>
+            <% timeInfo.forEach(function(timeSlot) { %>
+              <td>
+                <%= timeSlot.start.toLocaleDateString() %>
+              </td>
+              <% }) %>
+
+          </tr>
+
+
+
+          <tr>
+            <td id='totalCounter'>
+              <span>
+                <i class="fas fa-plus"></i>
+              </span> New Participant
+            </td>
+            <% if (availInfo.length > 1) { %>
+              <% availInfo.forEach(function(slotSum) { %>
+                <td>
+                  <i class="fas fa-check trueHandler"></i>
+                  <%=slotSum.count%>
+                </td>
+                <% })} else if (availInfo.length == 0) { %>
+                  <% timeInfo.forEach(function(timeSlot) { %>
+                      <td>
+                        <i data-id=<%=timeSlot.id%> class="fas fa-check trueHandler"></i>0</td>
+                      <% }) %>
+                        <% } %>
+
+          </tr>
+
+          <form action="/poll/<%=event_url%>/add" method="POST">
+          <tr>
+            <td id='totalCounter'>
+              <input name="nameInput" class='forms' type='text' placeholder='name' />
+              <input name="emailInput" class='forms' type='email' placeholder='email'/>
+              <button type='submit' class='submit'>Submit my poll</button>
+            </td>
+            <% timeInfo.forEach(function(timeSlot) { %>
+=======
   <section class="hero  is-fullheight create-section">
     <div class="hero-body">
       <div class="container has-text-centered">
@@ -35,7 +102,8 @@
             </div>
             <h4>Share this page with your friends: </h4>
             <h4>
-              <a href="http://localhost:8080/poll/<%=eventInfo[0].id%>">http://localhost:8080/poll/<%=event_url%>
+              <a href="http://localhost:8080/poll/<%=eventInfo[0].id%>">http://localhost:8080/poll/
+                <%=event_url%>
               </a>
             </h4>
             <div class='mainArea'>
@@ -49,14 +117,12 @@
                 <%=eventInfo[0].creator_name%> -
                   <%=eventInfo[0].creator_email%>
               </h3>
-
-
-
           </section>
           <table class="table is-bordered is-striped  is-hoverable is-fullwidth" id="availabilities">
             <tr>
               <td></td>
               <% timeInfo.forEach(function(timeSlot) { %>
+>>>>>>> 0f94fe8d45ba415e37402e461e68b5a5be857ccf
                 <td>
                   <%= timeSlot.start.toLocaleDateString() %>
                 </td>
@@ -78,7 +144,7 @@
                     <% timeInfo.forEach(function(timeSlot) { %>
                       <%=console.log('this is the avail info', timeSlot.id) %>
                         <td>
-                          <i data-id=<%=timeSlot.id%> class="fas fa-check trueHandler">0</i>
+                          <i data-id=<%=timeSlot.id%> class="fas fa-check trueHandler"></i>0
                         </td>
                         <% }) %>
                           <% } %>
