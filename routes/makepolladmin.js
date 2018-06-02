@@ -104,10 +104,10 @@ module.exports = function(knex) {
     })
     .returning('id')
     .then(function (id) {
-      console.log('id returned:', id)
+      // console.log('id returned:', id)
       time.forEach(function(element, i) {
-        console.log('time insert:', element)
-        console.log('avail insert:', avail[i])
+        // console.log('time insert:', element)
+        // console.log('avail insert:', avail[i])
         knex('availabilities').insert({
           attendee_id: id[0],
           time_id: element,
@@ -196,16 +196,17 @@ module.exports = function(knex) {
   });
 
   makePollAdmin.post("/poll/:id/toggle", (req, res) => {
-    console.log("console log1", req.body);
-    console.log("console log2", req.body.userid);
-    console.log("console log2", req.body.timeid);
+    // console.log("console log1", req.body);
+    // console.log("console log2", req.body.userid);
+    // console.log("console log2", req.body.timeid);
+    event_url = req.params.id
 
     knex("availabilities")
       .select("is_available")
       .where("attendee_id", "=", req.body.userid)
       .andWhere("time_id", "=", req.body.timeid)
       .then(function(x) {
-        console.log(x[0].is_available);
+        // console.log(x[0].is_available);
         if (x[0].is_available == true) {
           return knex("availabilities")
             .select("is_available")
