@@ -179,30 +179,21 @@ module.exports = function(knex) {
     console.log('console log2', req.body.userid);
     console.log('console log2', req.body.timeid);
 
-    knex('availabilities')
-    .select('is_available')
-      .where('attendee_id', '=', req.body.userid)
-      .andWhere('time_id', '=', req.body.timeid)
-      .then(function(x) {
-        if (x == true){
-          knex('availabilities')
-          .select('is_available')
-            .where('attendee_id', '=', req.body.userid)
-            .andWhere('time_id', '=', req.body.timeid)
-            .update('is_available', 'false')
-        } else if (x == false){
-          knex('availabilities')
-          .select('is_available')
-            .where('attendee_id', '=', req.body.userid)
-            .andWhere('time_id', '=', req.body.timeid)
-            .update('is_available', 'true')
-        }
-      });
-       // .update('is_available', !'is_available')
-       //return res.send(JSON.stringify(req.body)
-//SET is_available = NOT is_available
-      })
-  ;
+    // knex('availabilities')
+    //   .where('attendee_id', '=', '1', 'AND', 'time_id', '=', '1')
+    //   .update('is_available', '=', 'f');
+
+    // knex.raw(`UPDATE availabilities SET is_available = f  WHERE  time_id = 1 AND  attendee_id = 1`).then(
+    //   function (x) {
+    //     console.log(x)
+    //   }
+    // )
+    // knex.raw(
+    //   `UPDATE availabilities SET is_available = f  WHERE  time_id = 1 AND WHERE attendee_id = 1`
+    // );
+
+    res.send(JSON.stringify(req.body));
+  });
 
   return makePollAdmin;
 };
