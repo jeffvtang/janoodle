@@ -64,15 +64,15 @@
                 <% }) %>
             </tr>
             <tr>
-              <td id='togglenew'>
-                <span>
-                  <i class="fas fa-plus icon has-text-info"></i>
+              <td >
+                <span id='togglenew'>
+                  <i class="fas fa-plus icon has-text-info" data-id="new-attendee"></i>
                 </span> New Participant
               </td>
               <% if (availInfo.length > 1) { %>
                 <% availInfo.forEach(function(slotSum) { %>
                   <td>
-                    <i class="fas fa-check-square icon has-text-success"></i>
+                    <i class="fas fa-check-square icon has-text-success" ></i>
                     <%=slotSum.count%>
                   </td>
                   <% })} else if (availInfo.length == 0) { %>

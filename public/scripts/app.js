@@ -15,40 +15,44 @@ $(document).ready(function() {
   //   $(".newRow textarea").focus();
   // });
 
-  $('#togglenew').click(function () {
+/*   $('#togglenew').click(function () {
     $("#slideme").slideToggle()
     // $("#slideme").slideToggle(function () {
       // $('textarea').focus();
-    // });
-  });
-
-
-
-  $("#availabilities i").on("click", function(event) {
-    event.preventDefault();
-    const that = this;
-    const ids = $(that)
+      // });
+    }); */
+    
+    
+    
+    $("#availabilities i").on("click", function(event) {
+      event.preventDefault();
+      const that = this;
+      const ids = $(that)
       .data("id")
       .split("-");
-
-    const event_url = $(that).data("event-url");
-    const userid = ids[0];
-    const timeid = ids[1];
-
-    if (userid == "delete") {
-      console.log("delete trigger");
-      $.ajax({
-        url: `/poll/${event_url}/delete`,
-        method: "delete",
-        data: {
-          userid,
-          timeid
-        },
-        success: function(data) {
-          location.reload();
-        }
+      
+      const event_url = $(that).data("event-url");
+      const userid = ids[0];
+      const timeid = ids[1];
+      
+      if (userid == "delete") {
+        console.log("delete trigger");
+        $.ajax({
+          url: `/poll/${event_url}/delete`,
+          method: "delete",
+          data: {
+            userid,
+            timeid
+          },
+          success: function(data) {
+            location.reload();
+          }
+          
+        });
+      } else if (userid == "new") {
+        $("#slideme").slideToggle()
         
-      });
+    
     } else {
       console.log("not delete trigger");
       $.ajax({
