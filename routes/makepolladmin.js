@@ -249,7 +249,8 @@ module.exports = function(knex) {
           .where("id", "=", req.body.timeid)
         })
         .then(function(y){
-          return res.redirect(`/poll/${event_url}`);
+          // return res.redirect(`/poll/${event_url}`);
+          return res.sendStatus(200);
         })
       })
     return makePollAdmin;

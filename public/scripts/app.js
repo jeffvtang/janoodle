@@ -35,29 +35,12 @@ $(document).ready(function() {
           userid,
           timeid
         },
-
-        // success: function(data) {
-        //   if ($(that).hasClass("fa-check")) {
-        //     $(that)
-        //       .removeClass("fa-check")
-        //       .addClass("fa-times");
-        //   } else {
-        //     $(that)
-        //       .removeClass("fa-times")
-        //       .addClass("fa-check");
-        //   }
-        // }
-        // success: function(data) {
-        //   if ($(that).hasClass("fa-check")) {
-        //     $(that)
-        //       .removeClass("fa-check")
-        //       .addClass("fa-times");
-        //   } else {
-        //     $(that)
-        //       .removeClass("fa-times")
-        //       .addClass("fa-check");
-        //   }
-        // }
+        success: function(data) {
+          location.reload();
+          
+        }
+        
+        
       });
     } else {
       console.log("not delete trigger");
@@ -68,17 +51,18 @@ $(document).ready(function() {
           userid,
           timeid
         },
-
+        
         success: function(data) {
-          if ($(that).hasClass("fa-check")) {
-            $(that)
-              .removeClass("fa-check")
-              .addClass("fa-times");
-          } else {
-            $(that)
-              .removeClass("fa-times")
-              .addClass("fa-check");
-          }
+          // if ($(that).hasClass("fa-check")) {
+            //   $(that)
+            //     .removeClass("fa-check")
+            //     .addClass("fa-times");
+            // } else {
+              //   $(that)
+              //     .removeClass("fa-times")
+              //     .addClass("fa-check");
+              // }
+              location.reload();
         }
       });
     }
