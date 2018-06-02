@@ -37,6 +37,8 @@ module.exports = function(knex) {
     res.render("create", templateVars);
   });
 
+
+  
   makePollAdmin.post("/poll", (req, res) => {
     const urlId = crypto.randomBytes(4).toString("hex");
 
@@ -70,61 +72,63 @@ module.exports = function(knex) {
     //res.render('poll.ejs')
   });
 
+  
+  
   makePollAdmin.post("/poll/:id/add", (req, res) => {
     let time = [];
     let avail = [];
     let name = req.body.nameInput;
     let email = req.body.emailInput;
     let event_url = req.params.id;
-
+    
     for (let element in req.body) {
       if (element != "nameInput" && element != "emailInput") {
         time.push(element);
         avail.push(req.body[element]);
       }
     }
-
+    
     // console.log(time);
     // console.log(avail);
     // console.log(name);
     // console.log(email);
     // console.log(event_url);
-
+    
     // time.forEach(function(element, i) {
       // console.log('id:', name, 'time', element, 'avail:', avail[i])
       // console.log('1:', element)
       // console.log('3:', avail[i])
-    // })
-    
-    knex('attendees')
-    .insert({
-      name: req.body.nameInput,
-      email: req.body.emailInput,
-      event_id: req.params.id
-    })
-    .returning('id')
-    .then(function (id) {
-      // console.log('id returned:', id)
-      time.forEach(function(element, i) {
-        // console.log('time insert:', element)
-        // console.log('avail insert:', avail[i])
-        knex('availabilities').insert({
-          attendee_id: id[0],
-          time_id: element,
-          is_available: avail[i]
-        }).then(x => console.log(x))
+      // })
+      
+      knex('attendees')
+      .insert({
+        name: req.body.nameInput,
+        email: req.body.emailInput,
+        event_id: req.params.id
       })
-      // res.render('poll.ejs')
-    })
-          .then(function (x) {
-            res.redirect(`/poll/${event_url}`);
-          })
+      .returning('id')
+      .then(function (id) {
+        // console.log('id returned:', id)
+        time.forEach(function(element, i) {
+          // console.log('time insert:', element)
+          // console.log('avail insert:', avail[i])
+          knex('availabilities').insert({
+            attendee_id: id[0],
+            time_id: element,
+            is_available: avail[i]
+          }).then(x => console.log(x))
         })
-
-  makePollAdmin.get("/poll/:id", (req, res) => {
-    const event_url = req.params.id;
-    let templateVars = {};
-    knex
+        // res.render('poll.ejs')
+      })
+      .then(function (x) {
+        res.redirect(`/poll/${event_url}`);
+      })
+    })
+    
+    makePollAdmin.get("/poll/:id", (req, res) => {
+      const event_url = req.params.id;
+      let templateVars = {};
+      knex
       .select()
       .from("events")
       .where("id", event_url)
@@ -140,27 +144,27 @@ module.exports = function(knex) {
       })
       .then(function(x) {
         return knex
-          .select("times.id AS id", "start_time AS start", "end_time AS end")
-          .from("times")
-          .where("event_id", "=", event_url)
-          .groupBy("times.id")
-          .orderBy("times.id");
+        .select("times.id AS id", "start_time AS start", "end_time AS end")
+        .from("times")
+        .where("event_id", "=", event_url)
+        .groupBy("times.id")
+        .orderBy("times.id");
       })
       .then(function(timeQuery) {
         templateVars.timeInfo = timeQuery;
       })
       .then(function(y) {
         return knex
-          .select(
-            knex.raw(
-              `sum(case when is_available = 't' then 1 else 0 end) as count`
-            )
+        .select(
+          knex.raw(
+            `sum(case when is_available = 't' then 1 else 0 end) as count`
           )
-          .from("availabilities")
-          .join("times", "time_id", "=", "times.id")
-          .where("event_id", "=", event_url)
-          .groupBy("times.id")
-          .orderBy("times.id");
+        )
+        .from("availabilities")
+        .join("times", "time_id", "=", "times.id")
+        .where("event_id", "=", event_url)
+        .groupBy("times.id")
+        .orderBy("times.id");
       })
       .then(function(availQuery) {
         // console.log('time', availQuery);
@@ -168,21 +172,21 @@ module.exports = function(knex) {
       })
       .then(function(z) {
         return knex
-          .select(
-            "attendees.id AS id",
-            "attendees.name AS name",
-            "is_available AS avail",
-            "events.id AS e.id",
-            "events.name AS e.name",
-            "times.id AS timeID"
-          )
-          .from("availabilities")
-          .join("attendees", "attendees.id", "=", "availabilities.attendee_id")
-          .join("events", "events.id", "=", "attendees.event_id")
-          .join("times", "times.id", "=", "availabilities.time_id")
-          .where("events.id", event_url)
-          .orderBy("attendees.id", "times.id")
-          .orderBy("times.id");
+        .select(
+          "attendees.id AS id",
+          "attendees.name AS name",
+          "is_available AS avail",
+          "events.id AS e.id",
+          "events.name AS e.name",
+          "times.id AS timeID"
+        )
+        .from("availabilities")
+        .join("attendees", "attendees.id", "=", "availabilities.attendee_id")
+        .join("events", "events.id", "=", "attendees.event_id")
+        .join("times", "times.id", "=", "availabilities.time_id")
+        .where("events.id", event_url)
+        .orderBy("attendees.id", "times.id")
+        .orderBy("times.id");
       })
       .then(function(attendeeQuery) {
         templateVars.attendeeInfo = groupByID(attendeeQuery, "id");
@@ -193,15 +197,15 @@ module.exports = function(knex) {
       .catch(function(err) {
         console.log(err);
       });
-  });
+    });
 
-  makePollAdmin.post("/poll/:id/toggle", (req, res) => {
-    // console.log("console log1", req.body);
-    // console.log("console log2", req.body.userid);
-    // console.log("console log2", req.body.timeid);
-    event_url = req.params.id
-
-    knex("availabilities")
+    makePollAdmin.post("/poll/:id/toggle", (req, res) => {
+      // console.log("console log1", req.body);
+      // console.log("console log2", req.body.userid);
+      // console.log("console log2", req.body.timeid);
+      event_url = req.params.id
+      
+      knex("availabilities")
       .select("is_available")
       .where("attendee_id", "=", req.body.userid)
       .andWhere("time_id", "=", req.body.timeid)
@@ -209,22 +213,37 @@ module.exports = function(knex) {
         // console.log(x[0].is_available);
         if (x[0].is_available == true) {
           return knex("availabilities")
-            .select("is_available")
-            .where("attendee_id", "=", req.body.userid)
-            .andWhere("time_id", "=", req.body.timeid)
-            .update("is_available", "false");
+          .select("is_available")
+          .where("attendee_id", "=", req.body.userid)
+          .andWhere("time_id", "=", req.body.timeid)
+          .update("is_available", "false");
         } else if (x[0].is_available == false) {
           return knex("availabilities")
-            .select("is_available")
-            .where("attendee_id", "=", req.body.userid)
-            .andWhere("time_id", "=", req.body.timeid)
-            .update("is_available", "t");
+          .select("is_available")
+          .where("attendee_id", "=", req.body.userid)
+          .andWhere("time_id", "=", req.body.timeid)
+          .update("is_available", "t");
         }
       })
       .then(function(y) {
         return res.sendStatus(200);
       });
-  });
-
-  return makePollAdmin;
-};
+    });
+    
+      makePollAdmin.delete("/poll/:id/delete", (req, res) => {
+        event_url = req.params.id
+        deleteUser = req.body.timeid
+        
+        knex("availabilities")
+        .where("attendee_id", "=", req.body.timeid)
+        .del()
+        .then(function(x){
+          return knex("attendees")
+          .where("id", "=", req.body.timeid)
+        })
+        .then(function(y){
+          return res.redirect(`/poll/${event_url}`);
+        })
+      })
+    return makePollAdmin;
+  };

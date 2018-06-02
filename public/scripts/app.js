@@ -29,24 +29,35 @@ $(document).ready(function() {
     if (userid == "delete") {
       console.log("delete trigger");
       $.ajax({
-        url: `/poll/${event_url}/toggle`,
-        method: "post",
+        url: `/poll/${event_url}/delete`,
+        method: "delete",
         data: {
           userid,
           timeid
         },
 
-        success: function(data) {
-          if ($(that).hasClass("fa-check")) {
-            $(that)
-              .removeClass("fa-check")
-              .addClass("fa-times");
-          } else {
-            $(that)
-              .removeClass("fa-times")
-              .addClass("fa-check");
-          }
-        }
+        // success: function(data) {
+        //   if ($(that).hasClass("fa-check")) {
+        //     $(that)
+        //       .removeClass("fa-check")
+        //       .addClass("fa-times");
+        //   } else {
+        //     $(that)
+        //       .removeClass("fa-times")
+        //       .addClass("fa-check");
+        //   }
+        // }
+        // success: function(data) {
+        //   if ($(that).hasClass("fa-check")) {
+        //     $(that)
+        //       .removeClass("fa-check")
+        //       .addClass("fa-times");
+        //   } else {
+        //     $(that)
+        //       .removeClass("fa-times")
+        //       .addClass("fa-check");
+        //   }
+        // }
       });
     } else {
       console.log("not delete trigger");
