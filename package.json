@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "nodemon -L server.js",
     "local": "./node_modules/.bin/nodemon --ignore public/",
     "knex": "./node_modules/.bin/knex"
   },
@@ -13,6 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "bulma": "^0.7.1",
+    "bulma-start": "0.0.2",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",
     "dotenv": "^2.0.0",
