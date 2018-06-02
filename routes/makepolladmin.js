@@ -92,24 +92,24 @@ module.exports = function (knex) {
     console.log(event_url)
 
 
-    knex('attendees')
-      .insert({
-        name: req.body.nameInput,
-        email: req.body.emailInput,
-        event_id: req.params.id
-      })
-      .returning('id')
-      .then(function (id) {
-        return knex('availabilties').insert({
-          attendee_id: id,
-          time_id: time,
-          is_available: avail
-        });
-      })
-      .then(function (x) {
-        res.redirect(`/poll/${event_url}`);
-      })
-    res.render('poll.ejs')
+    // knex('attendees')
+    //   .insert({
+    //     name: req.body.nameInput,
+    //     email: req.body.emailInput,
+    //     event_id: req.params.id
+    //   })
+    //   .returning('id')
+    //   .then(function (id) {
+    //     return knex('availabilties').insert({
+    //       attendee_id: id,
+    //       time_id: time,
+    //       is_available: avail
+    //     });
+    //   })
+    //   .then(function (x) {
+    //     res.redirect(`/poll/${event_url}`);
+    //   })
+    // res.render('poll.ejs')
   });
 
   makePollAdmin.get('/poll/:id', (req, res) => {
@@ -196,23 +196,23 @@ module.exports = function (knex) {
       .where('attendee_id', '=', req.body.userid)
       .andWhere('time_id', '=', req.body.timeid)
       .then(function (x) {
-        if (x == true) {
-          knex('availabilities')
+        console.log(x[0].is_available)
+        if (x[0].is_available == true) {
+          return knex('availabilities')
             .select('is_available')
             .where('attendee_id', '=', req.body.userid)
             .andWhere('time_id', '=', req.body.timeid)
             .update('is_available', 'false')
-        } else if (x == false) {
-          knex('availabilities')
+        } else if (x[0].is_available == false) {
+          return knex('availabilities')
             .select('is_available')
             .where('attendee_id', '=', req.body.userid)
             .andWhere('time_id', '=', req.body.timeid)
-            .update('is_available', 'true')
+            .update('is_available', 't')
         }
+      }).then(function (y) {
+        return res.sendStatus(200)
       });
-    // .update('is_available', !'is_available')
-    //return res.send(JSON.stringify(req.body)
-    //SET is_available = NOT is_available
   });
 
   return makePollAdmin;
