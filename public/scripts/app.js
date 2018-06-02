@@ -9,63 +9,67 @@
   });;
 });*/
 
-$(document).ready(function () {
-  $('.addRow').on('click', function (event) {
-    $('.newRow').slideToggle();
-    $('.newRow textarea').focus();
+$(document).ready(function() {
+  $(".addRow").on("click", function(event) {
+    $(".newRow").slideToggle();
+    $(".newRow textarea").focus();
   });
 
-  $('#availabilities i').on('click', function (event) {
+  $("#availabilities i").on("click", function(event) {
     event.preventDefault();
     const that = this;
     const ids = $(that)
-      .data('id')
-      .split('-');
+      .data("id")
+      .split("-");
 
-    const event_url = $(that).data('event-url');
+    const event_url = $(that).data("event-url");
     const userid = ids[0];
     const timeid = ids[1];
 
-
-    if (userid == 'delete') {
-      console.log('delete trigger')
+    if (userid == "delete") {
+      console.log("delete trigger");
       $.ajax({
         url: `/poll/${event_url}/toggle`,
-        method: 'post',
+        method: "post",
         data: {
           userid,
-          timeid,
+          timeid
         },
 
-        success: function (data) {
-          if ($(that).hasClass('fa-check')) {
-            $(that).removeClass('fa-check').addClass('fa-times');
+        success: function(data) {
+          if ($(that).hasClass("fa-check")) {
+            $(that)
+              .removeClass("fa-check")
+              .addClass("fa-times");
           } else {
-            $(that).removeClass('fa-times').addClass('fa-check');
+            $(that)
+              .removeClass("fa-times")
+              .addClass("fa-check");
           }
-        },
+        }
       });
     } else {
-      console.log('not delete trigger')
+      console.log("not delete trigger");
       $.ajax({
         url: `/poll/${event_url}/toggle`,
-        method: 'post',
+        method: "post",
         data: {
           userid,
-          timeid,
+          timeid
         },
 
-        success: function (data) {
-          if ($(that).hasClass('fa-check')) {
-            $(that).removeClass('fa-check').addClass('fa-times');
+        success: function(data) {
+          if ($(that).hasClass("fa-check")) {
+            $(that)
+              .removeClass("fa-check")
+              .addClass("fa-times");
           } else {
-            $(that).removeClass('fa-times').addClass('fa-check');
+            $(that)
+              .removeClass("fa-times")
+              .addClass("fa-check");
           }
-        },
+        }
       });
     }
-
-
-
   });
 });
