@@ -38,8 +38,7 @@
     <div class=information>
       <h4>Share this page with your friends: </h4>
       <h4>
-        <a href="http://localhost:8080/poll/<%=eventInfo[0].id%>">http://localhost:8080/poll/
-          <%=event_url%>
+        <a href="http://localhost:8080/poll/<%=eventInfo[0].id%>">http://localhost:8080/poll/<%=event_url%>
         </a>
       </h4>
       <div class='mainArea'>
@@ -89,24 +88,19 @@
 
           </tr>
 
-          <form action="/poll/add" method="POST">
+          <form action="/poll/<%=event_url%>/add" method="POST">
           <tr>
             <td id='totalCounter'>
-              <input name="name" class='forms' type='text' placeholder='name' />
-              <input name="emailInput" class='forms' type='text' placeholder='email'/>
+              <input name="nameInput" class='forms' type='text' placeholder='name' />
+              <input name="emailInput" class='forms' type='email' placeholder='email'/>
               <button type='submit' class='submit'>Submit my poll</button>
             </td>
             <% timeInfo.forEach(function(timeSlot) { %>
-              <%=console.log('this is the avail info', timeSlot.id) %>
                 <td>
-                  <input type="checkbox" id="<%=timeSlot.id%>" name="is_available[]" value="<%=timeSlot.id%>">
+                  <input type="radio" name="<%=timeSlot.id%>" id="<%=timeSlot.id%>[]" value="true"> Can Attend<br>
+                  <input type="radio" name="<%=timeSlot.id%>" id="<%=timeSlot.id%>[]" value="false" checked> Can't Attend<br>
                 </td>
                 <% }) %>
-
-                <% timeInfo.forEach(function(timeSlot) { %>
-                <%=console.log('this is the avail info', timeSlot.id) %>
-                <td><input type="checkbox" id="<%=timeSlot.id%>" name="is_available[]" value="<%=timeSlot.id%>"> </td>
-              <% }) %>
 
 
           </tr>

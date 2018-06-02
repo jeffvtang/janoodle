@@ -3,7 +3,7 @@ const makePollAdmin = express.Router();
 var crypto = require('crypto');
 
 function groupByID(objectArray, property) {
-  return objectArray.reduce(function(acc, obj) {
+  return objectArray.reduce(function (acc, obj) {
     var key = obj[property];
     if (!acc[key]) {
       acc[key] = {};
@@ -22,7 +22,7 @@ function groupByID(objectArray, property) {
   }, {});
 }
 
-module.exports = function(knex) {
+module.exports = function (knex) {
   makePollAdmin.get('/', (req, res) => {
     res.render('index.ejs');
   });
@@ -56,7 +56,7 @@ module.exports = function(knex) {
         creator_email: creatorEmail,
       })
       .returning('id')
-      .then(function(response) {
+      .then(function (response) {
         return knex('times').insert({
           event_id: urlId,
           start_time: eventStartDate,
@@ -64,34 +64,52 @@ module.exports = function(knex) {
         });
         console.log(response);
       })
-      .then(function(x) {
+      .then(function (x) {
         res.redirect(`/poll/${urlId}`);
       });
     //res.render('poll.ejs')
   });
 
 
-  makePollAdmin.post('/poll/add', (req, res) => {
-    console.log(req.body)
+  makePollAdmin.post('/poll/:id/add', (req, res) => {
+    let time = []
+    let avail = []
+    let name = req.body.nameInput
+    let email = req.body.emailInput
+    let event_url = req.params.id
 
-    // knex('attendees')
-    //   .insert({
-    //     name: req.body.nameInput,
-    //     email: req.body.emailInput,
-    //     event_id: event_url
-    //   })
-    //   .returning('id')
-    //   .then(function (id) {
-    //     return knex('availabilties').insert({
-    //       attendee_id: id,
-    //       time_id: ,
-    //       is_available: *avail
-    //     });
-    //   })
-    //   .then(function (x) {
-    //     res.redirect(`/poll/${event_url}`);
-    //   })
-    //res.render('poll.ejs')
+    for (let element in req.body) {
+      if (element != 'nameInput' && element != 'emailInput') {
+        time.push(element)
+        avail.push(req.body[element])
+      }
+    }
+
+    console.log(time)
+    console.log(avail)
+    console.log(name)
+    console.log(email)
+    console.log(event_url)
+
+
+    knex('attendees')
+      .insert({
+        name: req.body.nameInput,
+        email: req.body.emailInput,
+        event_id: req.params.id
+      })
+      .returning('id')
+      .then(function (id) {
+        return knex('availabilties').insert({
+          attendee_id: id,
+          time_id: time,
+          is_available: avail
+        });
+      })
+      .then(function (x) {
+        res.redirect(`/poll/${event_url}`);
+      })
+    res.render('poll.ejs')
   });
 
   makePollAdmin.get('/poll/:id', (req, res) => {
@@ -101,7 +119,7 @@ module.exports = function(knex) {
       .select()
       .from('events')
       .where('id', event_url)
-      .then(function(eventQuery) {
+      .then(function (eventQuery) {
         console.log(eventQuery.length);
         if (eventQuery.length === 0) {
           // if the no results from the event query, return an error
@@ -111,7 +129,7 @@ module.exports = function(knex) {
           templateVars.eventInfo = eventQuery;
         }
       })
-      .then(function(x) {
+      .then(function (x) {
         return knex
           .select('times.id AS id', 'start_time AS start', 'end_time AS end')
           .from('times')
@@ -119,10 +137,10 @@ module.exports = function(knex) {
           .groupBy('times.id')
           .orderBy('times.id');
       })
-      .then(function(timeQuery) {
+      .then(function (timeQuery) {
         templateVars.timeInfo = timeQuery;
       })
-      .then(function(y) {
+      .then(function (y) {
         return knex
           .select(
             knex.raw(
@@ -135,11 +153,11 @@ module.exports = function(knex) {
           .groupBy('times.id')
           .orderBy('times.id');
       })
-      .then(function(availQuery) {
-        console.log('time', availQuery);
+      .then(function (availQuery) {
+        // console.log('time', availQuery);
         templateVars.availInfo = availQuery;
       })
-      .then(function(z) {
+      .then(function (z) {
         return knex
           .select(
             'attendees.id AS id',
@@ -157,13 +175,13 @@ module.exports = function(knex) {
           .orderBy('attendees.id', 'times.id')
           .orderBy('times.id');
       })
-      .then(function(attendeeQuery) {
+      .then(function (attendeeQuery) {
         templateVars.attendeeInfo = groupByID(attendeeQuery, 'id');
         templateVars.event_url = event_url;
         // console.log(templateVars)
         return res.render('poll.ejs', templateVars);
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.log(err);
       });
   });
@@ -174,29 +192,28 @@ module.exports = function(knex) {
     console.log('console log2', req.body.timeid);
 
     knex('availabilities')
-    .select('is_available')
+      .select('is_available')
       .where('attendee_id', '=', req.body.userid)
       .andWhere('time_id', '=', req.body.timeid)
-      .then(function(x) {
-        if (x == true){
+      .then(function (x) {
+        if (x == true) {
           knex('availabilities')
-          .select('is_available')
+            .select('is_available')
             .where('attendee_id', '=', req.body.userid)
             .andWhere('time_id', '=', req.body.timeid)
             .update('is_available', 'false')
-        } else if (x == false){
+        } else if (x == false) {
           knex('availabilities')
-          .select('is_available')
+            .select('is_available')
             .where('attendee_id', '=', req.body.userid)
             .andWhere('time_id', '=', req.body.timeid)
             .update('is_available', 'true')
         }
       });
-       // .update('is_available', !'is_available')
-       //return res.send(JSON.stringify(req.body)
-//SET is_available = NOT is_available
-      })
-  ;
+    // .update('is_available', !'is_available')
+    //return res.send(JSON.stringify(req.body)
+    //SET is_available = NOT is_available
+  });
 
   return makePollAdmin;
 };
