@@ -8,15 +8,15 @@
   <meta name="author" content="Jeff Tang, Abraham Prince, Noah Birenbaum">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/pollLayout.css" type="text/css" />
   <!-- FONT -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
   <!-- Icons -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
   <title>JANoodle!</title>
@@ -28,29 +28,27 @@
       <header>
         <h3> JANoodle</h3>
       </header>
-  <section>
-          
 
-            <h4>Share this page with your friends: </h4>
-            <h4>
-              <a href="http://localhost:8080/poll/<%=eventInfo[0].id%>">http://localhost:8080/poll/<%=event_url%>
-              </a>
-            </h4>
-              <h2>
-                <%=eventInfo[0].name%>
-              </h2>
-              <h3>
-                <%=eventInfo[0].description%>
-              </h3>
-              <h3>
-                <%=eventInfo[0].creator_name%> -
-                  <%=eventInfo[0].creator_email%>
-              </h3>
+      <section>
+        <h4>Share this page with your friends: </h4>
+        <h4>
+          <a href="http://localhost:8080/poll/<%=eventInfo[0].id%>">http://localhost:8080/poll/<%=event_url%></a>
+        </h4>
+        <h2>
+          <%=eventInfo[0].name%>
+        </h2>
+        <h3>
+          <%=eventInfo[0].description%>
+        </h3>
+        <h3>
+          <%=eventInfo[0].creator_name%> -
+            <%=eventInfo[0].creator_email%>
+        </h3>
+      </section>
 
-
-
-          </section>
-          <table class="table is-bordered is-striped  is-hoverable is-fullwidth" id="availabilities">
+      <div class="table_wrapper" style="width:60%; margin: 0 auto;" i>
+        <table class="table is-bordered is-striped  is-hoverable" id="availabilities">
+          <tbody>
             <tr>
               <td></td>
               <% timeInfo.forEach(function(timeSlot) { %>
@@ -60,22 +58,24 @@
                 <% }) %>
             </tr>
             <tr>
-              <td id='newbutton'>
+              <td id='newbutton' width="40%">
                 <span id='togglenew'>
                   <i class="fas fa-plus icon has-text-info" data-id="new-attendee"></i>
-                </span> New Participant
+                New Participant</span>
               </td>
               <% if (availInfo.length > 1) { %>
                 <% availInfo.forEach(function(slotSum) { %>
                   <td>
-                    <i class="fas fa-check-square icon has-text-success" ></i>
-                    <%=slotSum.count%>
+                    <i class="fas fa-check-square fa-2x icon is-medium has-text-success" style="margin: 0 auto;"></i>
+                    <span id='availNumber' class='has-text-success'><%=slotSum.count%></span>
                   </td>
                   <% })} else if (availInfo.length == 0) { %>
                     <% timeInfo.forEach(function(timeSlot) { %>
                       <%=console.log('this is the avail info', timeSlot.id) %>
                         <td>
-                          <i data-id="<%=timeSlot.id%>" class="fas fa-check-square icon has-text-success"></i>0
+                          <i data-id="<%=timeSlot.id%>" class="fas fa-check-square icon is-medium fa-2x has-text-success ">0</i>
+                          <span id='availNumber' class='has-text-success'>0</span>
+
                         </td>
                         <% }) %>
                           <% } %>
@@ -85,16 +85,16 @@
             <form action="/poll/<%=event_url%>/add" method="POST">
               <tr id="slideme" style="padding: 0">
                 <td id='totalCounter' style="padding: 0">
-                  <div id="slideme" style="display: none"></div>  
-                  <input name="nameInput" class='forms' type='text' placeholder='name' />
+                  <div id="slideme" style="display: none"></div>
+                  <input name="nameInput" class='forms' type='text' placeholder='name' style="width: 95%;" required/>
                   <br>
-                  <input name="emailInput" class='forms' type='email' placeholder='email' />
+                  <input name="emailInput" class='forms' type='email' placeholder='email' style="width: 95%;" required/>
                   <br>
-                  <button type='submit' class='submit'>Submit my poll</button>
+                  <button type='submit' class='button is-link'>Submit</button>
                 </td>
                 <% timeInfo.forEach(function(timeSlot) { %>
                   <td>
-                  <input type="hidden" name="<%=timeSlot.id%>" value="false"><input type="checkbox" name="<%=timeSlot.id%>" id="<%=timeSlot.id%>[]" value="true">
+                    <input type="hidden" name="<%=timeSlot.id%>" value="false"><input type="checkbox" name="<%=timeSlot.id%>" id="<%=timeSlot.id%>[]" value="true">
                     <br>
                   </td>
                   <% }) %>
@@ -112,16 +112,20 @@
                 <% attendeeInfo[element].avail.forEach(function(availStatus, i) { %>
                   <% if (availStatus == true)   {%>
                     <td>
-                      <i data-event-url="<%=event_url%>" data-id="<%=  attendeeInfo[element].id + '-' + attendeeInfo[element].timeID[i] %>" class="fas fa-check trueHandler icon has-text-success"></i>
+                      <i data-event-url="<%=event_url%>" data-id="<%=  attendeeInfo[element].id + '-' + attendeeInfo[element].timeID[i] %>" class="fas fa-check fa-2x trueHandler icon has-text-success"></i>
                     </td>
                     <% }else if (availStatus == false) { %>
                       <td>
-                        <i data-event-url="<%=event_url%>" data-id="<%=  attendeeInfo[element].id + '-' + attendeeInfo[element].timeID[i] %>" class="fas fa-times falseHandler icon has-text-danger"></i>
+                        <i data-event-url="<%=event_url%>" data-id="<%=  attendeeInfo[element].id + '-' + attendeeInfo[element].timeID[i] %>" class="fas fa-times fa-2x falseHandler icon has-text-danger"></i>
                       </td>
-                      <%}}) %>
+                      <% } %>
+                        <% }) %>
               </tr>
               <% } %>
-          </table>
-        </div>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
   </section>
 </body>

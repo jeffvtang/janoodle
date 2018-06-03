@@ -22,8 +22,6 @@ $(document).ready(function() {
       // });
     }); */
     
-    
-    
     $("#availabilities i").on("click", function(event) {
       event.preventDefault();
       const that = this;

@@ -10,8 +10,16 @@ body {
   text-align: center;
   margin: 0 auto;
   color:#363636;
-  font-family:Nunito,Segoe UI,Helvetica,Arial,sans-serif
+  font-family:Nunito,Segoe UI,Helvetica,Arial,sans-serif;
+  font-size: 1.25em;
 }
+
+span#availNumber{
+  font-family:'Roboto', sans-serif;
+  font-weight: bold;
+  font-size: 2em;
+}
+
 .create-section {
 background-color: #F2F6FA;
 }
@@ -20,33 +28,36 @@ background-color: #F2F6FA;
   display: none;
 }
 
-td#newbutton {
-  min-width: 20%;
-  max-width: 11em;
-}
-td#totalCounter {
-  min-width: 30px;
-  max-width: 30px;
-}
+// .table_wrapper {
+//   overflow-x: auto;
+// }
+
+// td#newbutton {
+//   min-width: 20%;
+//   max-width: 11em;
+// }
+// td#totalCounter {
+//   min-width: 30px;
+//   max-width: 30px;
+// }
 //currently working unless the window is too small
 //add dynamic resizing
 //nav bar
 //styling
-//trash icon transparency
-
+//submit button
 
 td .fa-trash-alt {
   float: right;
   display: none;
 }
 
+// i.fa-trash-alt:hover {
+//   opacity: 1;
+// }
 
-i.fa-trash-alt:hover {
-  opacity: 1;
-}
 td:hover .fa-trash-alt {
   display: block;
-  opacity: 0.5;
+  opacity: 0.75;
 }
 /*
 body {
