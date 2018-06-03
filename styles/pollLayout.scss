@@ -20,6 +20,34 @@ background-color: #F2F6FA;
   display: none;
 }
 
+td#newbutton {
+  min-width: 20%;
+  max-width: 11em;
+}
+td#totalCounter {
+  min-width: 30px;
+  max-width: 30px;
+}
+//currently working unless the window is too small
+//add dynamic resizing
+//nav bar
+//styling
+//trash icon transparency
+
+
+td .fa-trash-alt {
+  float: right;
+  display: none;
+}
+
+
+i.fa-trash-alt:hover {
+  opacity: 1;
+}
+td:hover .fa-trash-alt {
+  display: block;
+  opacity: 0.5;
+}
 /*
 body {
   background-color: #06c696;

@@ -169,7 +169,7 @@ module.exports = function(knex) {
       })
       .then(function(timeQuery) {
         templateVars.timeInfo = timeQuery;
-      })
+    })
       .then(function(y) {
         return knex
         .select(

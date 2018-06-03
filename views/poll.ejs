@@ -64,7 +64,7 @@
                 <% }) %>
             </tr>
             <tr>
-              <td >
+              <td id='newbutton'>
                 <span id='togglenew'>
                   <i class="fas fa-plus icon has-text-info" data-id="new-attendee"></i>
                 </span> New Participant
@@ -91,7 +91,9 @@
                 <td id='totalCounter' style="padding: 0">
                   <div id="slideme" style="display: none"></div>  
                   <input name="nameInput" class='forms' type='text' placeholder='name' />
+                  <br>
                   <input name="emailInput" class='forms' type='email' placeholder='email' />
+                  <br>
                   <button type='submit' class='submit'>Submit my poll</button>
                 </td>
                 <% timeInfo.forEach(function(timeSlot) { %>
