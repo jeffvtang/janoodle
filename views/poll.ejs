@@ -47,7 +47,7 @@
               <td></td>
               <% timeInfo.forEach(function(timeSlot) { %>
                 <td id='dateString'>
-                  <%= timeSlot.start.toDateString() %>
+                  <%= timeSlot.start.toLocaleDateString("en-US", { weekday: 'long', month: 'long', day: 'numeric'}) %>
                 </td>
                 <% }) %>
             </tr>
