@@ -1,6 +1,11 @@
 const express = require('express');
 const makePollAdmin = express.Router();
 var crypto = require('crypto');
+var api_key = '';
+var domain = 'sandboxb8f8fa739b914ab19257c6984b335b9c.mailgun.org';
+var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+
+
 
 function groupByID(objectArray, property) {
   return objectArray.reduce(function(acc, obj) {
@@ -87,6 +92,18 @@ module.exports = function(knex) {
     let name = req.body.nameInput;
     let email = req.body.emailInput;
     let event_url = req.params.id;
+
+    var emailMessage = {
+      from: 'admin@janoodle.com',
+      to: 'jeff.tang@live.com',
+      subject: 'Someone has responded to your event!',
+      text: name + 'has responded to your event "Social" on JANoodle. Please visit the link to view: http://localhost:8080/poll/' + event_url
+    };    
+
+    mailgun.messages().send(emailMessage, function (error, body) {
+      console.log(body);
+  });
+
     
     for (let element in req.body) {
       if (element != 'nameInput' && element != 'emailInput') {
@@ -221,6 +238,7 @@ module.exports = function(knex) {
     // console.log("console log2", req.body.userid);
     // console.log("console log2", req.body.timeid);
     event_url = req.params.id;
+
 
     knex('availabilities')
       .select('is_available')
