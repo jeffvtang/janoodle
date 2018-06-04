@@ -8,48 +8,42 @@
   <meta name="author" content="Jeff Tang, Abraham Prince, Noah Birenbaum">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-    crossorigin="anonymous">
-
-
+    <!-- CSS files -->
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
-  <!-- FONT -->
-  <link href="https://fonts.googleapis.com/css?family=Song+Myung" rel="stylesheet">
-
+    <!-- Javascript files-->
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
   <title>JANoodle!</title>
 </head>
-
 <body>
-  <section class="hero is-info is-large">
-    <h1 class="title is-1" id='welcome'>Welcome to JANoodle!</h1>
-    <h2 class="title is-4" class='desc-text'>Scheduling events made easy.</h2>
-
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        <form action="/create" method="POST">
-          <input class="input is-rounded" id='eventName' placeholder='What are you planning?' name="eventTitle">
-          <button class="button is-primary" type="submit" id="poll">Create JANoodle poll!</button>
-        </form>
-        <!-- <img class='screenshot' src=http://www.retailhabitatsdesign.com/wp-content/uploads/2017/05/Test-Computer-Key-by-Stuart-Miles.jpg></img> -->
-        <section class="section">
-          <div class="container">
-            <h1 class="title" id='howItWorks'>How it works!</h1>
-            <h2 class="subtitle">
-              <p id='info'>JANoodle is a web app for scheduling and planning events. You start by naming this event, then you tell your
-                friends who's running the event and where it is. You can send your friends multiple options of dates/times
-                for this event, send them the link to your page and they get to choose what dates work best for them.</p>
-            </h2>
+  <section class="hero is-info is-fullheight">
+    <header class="hero-head">
+      <nav class="navbar">
+        <div class="container">
+          <div class="navbar-brand">
+            <h1 class="title">JANoodle</h1>
           </div>
-        </section>
+        </div>
+      </nav>
+    </header>
+   <div class="hero-body">
+ <div class="container has-text-centered">
+        <div class="column is-8 is-offset-2">
+          <div class="box">
+              <form action="/create" method="POST">
+                <div class="control field is-grouped">
+                <input class="input is-bordered is-medium " id='eventName' placeholder='What are you planning?' required name="eventTitle">
+              </div>
+                <div class="control has-text-centered">
+                <button class="button is-primary is-medium center " type="submit" id="poll">Make Poll</button>
+              </div>
+              </form>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
-</body>
+
 
 </html>

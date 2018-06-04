@@ -35,7 +35,7 @@
                   <div class="field">
                     <label class="label">Event Name</label>
                     <div class="control">
-                      <input class="input" name="eventName" class='forms' type='text' placeholder='e.g Lighthouse event' value="<%=eventTitle%>">
+                      <input class="input" name="eventName" class='forms' required type='text' placeholder='e.g Lighthouse event' value="<%=eventTitle%>">
                     </div>
                   </div>
                   <!-- <input name='eventStartDate' class="forms" type='date' placeholder='Date'>
@@ -49,24 +49,24 @@
                   <div class="field">
                     <label class="label">Event Description</label>
                     <div class="control">
-                      <input class="input" name='eventDescription' class="forms" type='text' placeholder='Description'>
+                      <input class="input" name='eventDescription' class="forms" type='text' required placeholder='Description'>
                     </div>
                   </div>
                   <div class="field">
                     <label class="label">Creator Name</label>
                     <div class="control">
-                      <input class="input" name='ceatorName' class="forms" type='text' placeholder="What's your name?">
+                      <input class="input" name='ceatorName' class="forms" type='text' required placeholder="What's your name?">
                     </div>
                   </div>
                   <br>
                   <div class="field">
                     <label class="label">Creator Email</label>
                     <div class="control">
-                      <input name='creatorEmail' class="input" type='email' placeholder="What's your email?">
+                      <input name='creatorEmail' class="input" type='email' required placeholder="What's your email?">
                     </div>
                   </div>
                   <br>
-                  <button class="button is-link is-info is-large is-fullwidth" type='submit' class='submit'>Submit my poll</button>
+                  <button class="button is-link is-info is-large is-fullwidth" required type='submit' class='submit'>Submit my poll</button>
                 </form>
               </div>
             </div>
