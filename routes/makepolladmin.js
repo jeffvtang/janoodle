@@ -268,6 +268,18 @@ module.exports = function(knex) {
       makePollAdmin.delete("/poll/:id/delete", (req, res) => {
         event_url = req.params.id
         deleteUser = req.body.timeid
+
+        var emailMessage = {
+          from: 'admin@janoodle.com',
+          to: 'jeff.tang@live.com',
+          subject: 'Someone has removed their response to your event!',
+          text: 'Someone has deleted their response on your event "Social" on JANoodle. Please visit the link to view: http://localhost:8080/poll/' + event_url
+        };    
+    
+        mailgun.messages().send(emailMessage, function (error, body) {
+          console.log(body);
+      });
+    
         
         knex("availabilities")
         .where("attendee_id", "=", req.body.timeid)
