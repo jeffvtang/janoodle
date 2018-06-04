@@ -40,7 +40,7 @@
         </h3>
       </section>
 
-      <div class="table_wrapper" style="width:60%; margin: 0 auto;" i>
+      <div class="table_wrapper" >
         <table class="table is-bordered is-striped  is-hoverable is-narrow" id="availabilities">
           <tbody>
             <tr>
@@ -60,7 +60,7 @@
               <% if (availInfo.length > 1) { %>
                 <% availInfo.forEach(function(slotSum) { %>
                   <td>
-                    <i class="fas fa-check-square fa-2x icon is-medium has-text-success" style="margin: 0 auto;"></i>
+                    <i class="fas fa-check-square fa-2x icon is-medium has-text-success"></i>
                     <span id='availNumber' class='has-text-success'><%=slotSum.count%></span>
                   </td>
                   <% })} else if (availInfo.length == 0) { %>
@@ -87,7 +87,12 @@
                 </td>
                 <% timeInfo.forEach(function(timeSlot) { %>
                   <td>
-                    <input type="hidden" name="<%=timeSlot.id%>" value="false"><input type="checkbox" name="<%=timeSlot.id%>" id="<%=timeSlot.id%>[]" value="true">
+                    <input type="hidden" name="<%=timeSlot.id%>" value="false">
+                    <div class="check1">
+                        <input class="css-checkbox" type="checkbox" name="<%=timeSlot.id%>" id="<%=timeSlot.id%>[]" value="true">
+                        <label class="css-label" for="<%=timeSlot.id%>[]"></label>
+                        </div>
+    
                     <br>
                   </td>
                   <% }) %>
