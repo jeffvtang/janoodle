@@ -1,0 +1,108 @@
+@import "node_modules/bulma/sass/utilities/initial-variables";
+
+@import "node_modules/bulma/bulma";
+
+
+@import url(https://fonts.googleapis.com/css?family=Nunito);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+
+input[type=checkbox].css-checkbox {
+  position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
+}
+
+input[type=checkbox].css-checkbox + label.css-label {
+  padding-left:55px;
+  height:50px; 
+  display:inline-block;
+  line-height:50px;
+  background-repeat:no-repeat;
+  background-position: 0 0;
+  font-size:49px;
+  vertical-align:middle;
+  cursor:pointer;
+
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label {
+  background-position: 0 -50px;
+}
+label.css-label {
+background-image:url("https://i.imgur.com/6NebzAA.png");
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+
+
+body {
+  text-align: center; 
+  // margin: 0 auto;
+  // color: #363636;
+  font-family: Nunito, Segoe UI, Helvetica, Arial, sans-serif;
+  font-size: 1.25em;
+}
+
+span#availNumber {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  font-size: 2em;
+}
+
+input.forms {
+  font-weight: normal;
+  font-size: 75%;
+  margin: 2% 2% 0% 2%;
+  border-radius: 5px;
+  border: solid lightgray;
+  width: 95%;
+}
+
+i#fa-check-square{
+  margin: 0 auto;
+}
+
+button.submit {
+  margin: 2% 2%;
+  float: right;
+}
+
+div.table_wrapper{
+  width:60%; 
+  margin: 0 auto;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+td {
+  font-weight: bold;
+}
+
+tr#slideme {
+  display: none;
+  padding: 0;
+}
+
+td#totalCounter {
+  padding: 0;
+}
+
+td#dateString {
+  font-size: 80%;
+}
+
+td .fa-trash-alt {
+  float: right;
+  display: none;
+}
+
+td:hover .fa-trash-alt {
+  display: block;
+  opacity: 0.75;
+  margin-top: 2%;
+}

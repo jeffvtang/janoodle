@@ -1,6 +1,11 @@
 const express = require('express');
 const makePollAdmin = express.Router();
 var crypto = require('crypto');
+var api_key = '';
+var domain = 'sandboxb8f8fa739b914ab19257c6984b335b9c.mailgun.org';
+var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+
+
 
 function groupByID(objectArray, property) {
   return objectArray.reduce(function(acc, obj) {
@@ -80,21 +85,38 @@ module.exports = function(knex) {
   });
 
   makePollAdmin.post('/poll/:id/add', (req, res) => {
+    
+    
     let time = [];
     let avail = [];
     let name = req.body.nameInput;
     let email = req.body.emailInput;
     let event_url = req.params.id;
+
+    var emailMessage = {
+      from: 'admin@janoodle.com',
+      to: 'jeff.tang@live.com',
+      subject: 'Someone has responded to your event!',
+      text: name + 'has responded to your event "Social" on JANoodle. Please visit the link to view: http://localhost:8080/poll/' + event_url
+    };    
+
+    mailgun.messages().send(emailMessage, function (error, body) {
+      console.log(body);
+  });
+
     
     for (let element in req.body) {
       if (element != 'nameInput' && element != 'emailInput') {
         time.push(element);
-        avail.push(req.body[element]);
+        if (req.body[element].length == 2){
+        avail.push(true)
+        } else {
+          avail.push(false)
+        }
       }
     }
-    
-    // console.log(time);
-    // console.log(avail);
+    // console.log('full time', time);
+    // console.log('full avail', avail);
     // console.log(name);
     // console.log(email);
     // console.log(event_url);
@@ -115,8 +137,13 @@ module.exports = function(knex) {
       .then(function(id) {
         // console.log('id returned:', id)
         time.forEach(function(element, i) {
-          // console.log('time insert:', element)
-          // console.log('avail insert:', avail[i])
+          console.log('time insert:', element)
+          // console.log('avail insert length:', avail[i].length)
+          if (avail[i].length == 2){
+            let availInsert = true
+          } else {
+            let availInsert = false
+          }
           knex('availabilities')
             .insert({
               attendee_id: id[0],
@@ -159,7 +186,7 @@ module.exports = function(knex) {
       })
       .then(function(timeQuery) {
         templateVars.timeInfo = timeQuery;
-      })
+    })
       .then(function(y) {
         return knex
         .select(
@@ -212,6 +239,7 @@ module.exports = function(knex) {
     // console.log("console log2", req.body.timeid);
     event_url = req.params.id;
 
+
     knex('availabilities')
       .select('is_available')
       .where('attendee_id', '=', req.body.userid)
@@ -240,6 +268,18 @@ module.exports = function(knex) {
       makePollAdmin.delete("/poll/:id/delete", (req, res) => {
         event_url = req.params.id
         deleteUser = req.body.timeid
+
+        var emailMessage = {
+          from: 'admin@janoodle.com',
+          to: 'jeff.tang@live.com',
+          subject: 'Someone has removed their response to your event!',
+          text: 'Someone has deleted their response on your event "Social" on JANoodle. Please visit the link to view: http://localhost:8080/poll/' + event_url
+        };    
+    
+        mailgun.messages().send(emailMessage, function (error, body) {
+          console.log(body);
+      });
+    
         
         knex("availabilities")
         .where("attendee_id", "=", req.body.timeid)
@@ -249,7 +289,8 @@ module.exports = function(knex) {
           .where("id", "=", req.body.timeid)
         })
         .then(function(y){
-          return res.redirect(`/poll/${event_url}`);
+          // return res.redirect(`/poll/${event_url}`);
+          return res.sendStatus(200);
         })
       })
     return makePollAdmin;
