@@ -4,174 +4,65 @@
 
 
 @import url(https://fonts.googleapis.com/css?family=Nunito);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
 
 
 body {
   text-align: center;
-  margin: 0 auto;
-  color:#363636;
-  font-family:Nunito,Segoe UI,Helvetica,Arial,sans-serif;
+  // margin: 0 auto;
+  // color: #363636;
+  font-family: Nunito, Segoe UI, Helvetica, Arial, sans-serif;
   font-size: 1.25em;
 }
 
-span#availNumber{
-  font-family:'Roboto', sans-serif;
+span#availNumber {
+  font-family: 'Roboto', sans-serif;
   font-weight: bold;
   font-size: 2em;
 }
 
-.create-section {
-background-color: #F2F6FA;
+input.forms {
+  font-weight: normal;
+  font-size: 75%;
+  margin: 2% 2% 0% 2%;
+  border-radius: 5px;
+  border: solid lightgray;
+  width: 95%;
 }
 
-#slideme {
+button.submit {
+  margin: 2% 2%;
+  float: right;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+td {
+  font-weight: bold;
+}
+
+tr#slideme {
   display: none;
+  padding: 0;
 }
 
-// .table_wrapper {
-//   overflow-x: auto;
-// }
+td#totalCounter{
+  padding: 0;
+}
 
-// td#newbutton {
-//   min-width: 20%;
-//   max-width: 11em;
-// }
-// td#totalCounter {
-//   min-width: 30px;
-//   max-width: 30px;
-// }
-//currently working unless the window is too small
-//add dynamic resizing
-//nav bar
-//styling
-//submit button
+td#dateString {
+  font-size: 80%;
+}
 
 td .fa-trash-alt {
   float: right;
   display: none;
 }
 
-// i.fa-trash-alt:hover {
-//   opacity: 1;
-// }
-
 td:hover .fa-trash-alt {
   display: block;
   opacity: 0.75;
+  margin-top: 1%;
 }
-/*
-body {
-  background-color: #06c696;
-  font-family: 'Song Myung', serif;
-  text-align: center;
-
-  h1#welcome {
-    color: white;
-    font-size:4em;
-    margin-bottom: 0.25em;
-  }
-
-  p.desc-text {
-    color: white;
-    font-size: 2em;
-  }
-
-  input#eventName {
-    border-radius: 7px;
-    width: 33%;
-    font-size: 1.5em;
-    height: 2.5em;
-    vertical-align: top;
-    line-height: 2.2;
-  }
-  h1#howItWorks {
-    font-size:3em;
-
-  }
-
-  p#info {
-    font-size: 2em;
-
-  }
-
-  div#homepageText {
-    background-color: #086788;
-    color: white;
-  }
-
-
-  button#poll {
-    border-radius: 7px;
-    border: 0;
-    display:inline-block;
-    background-color: #f8333c;
-    //background-color: #f07f5d;
-    color: #fff;
-    height: 2em;
-    font-size: 1.5em;
-    margin: 0.5em;
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  img.screenshot {
-    margin: 3em;
-    width: 30em;
-  }
-
-  section#forms-container {
-    width: 66%;
-    margin: 0 auto;
-    border: solid 1px black;
-    border-radius: 7px;
-
-  header {
-    background-color: #b7add9;
-    border-bottom: solid 1px black;
-
-
-    h3.headerText {
-    text-align:left;
-    padding-left: 0.5em;
-    padding-top: 0.25em;
-    color: white;
-    height: 1.5em;
-    }
-  }
-
-  div.mainArea {
-    margin: 2em;
-    margin: 2em auto;
-    padding: 3em;
-    width: 66%;
-    background-color: white;
-    border: solid 1px;
-    border-radius: 7px;
-
-  input.forms {
-    border-top: 0;
-    border-right: 0;
-    border-left: 0;
-    margin: 1em;
-    }
-  }
-
-
-  footer {
-   
-    
-  
-  }
-
-}
-  table.pollTable, th, td {
-    border: 1px solid #d3d3d3;
-    font-size: 100%;
-    width: 90%
-    }
-
-
- 
-  }
-
-*/

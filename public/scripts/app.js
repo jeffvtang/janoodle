@@ -10,17 +10,6 @@
 });*/
 
 $(document).ready(function() {
-  // $(".addRow").on("click", function(event) {
-  //   $(".newRow").slideToggle();
-  //   $(".newRow textarea").focus();
-  // });
-
-/*   $('#togglenew').click(function () {
-    $("#slideme").slideToggle()
-    // $("#slideme").slideToggle(function () {
-      // $('textarea').focus();
-      // });
-    }); */
     
     $("#availabilities i").on("click", function(event) {
       event.preventDefault();
