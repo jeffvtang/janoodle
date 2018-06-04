@@ -53,7 +53,19 @@ module.exports = function(knex) {
     const creatorEmail = req.body.creatorEmail;
 
     const dates = eventStartDate.split(', ');
-    dates.forEach(date => {});
+    // dates.forEach(date => {});
+
+    var emailMessage = {
+      from: 'admin@janoodle.com',
+      to: 'abeprincec@gmail.com',
+      subject: creatorName + ' has invited you to an event!',
+      text: creatorName + ' has invited you their event "Social" on JANoodle. Please visit the link to view: http://localhost:8080/poll/' + urlId
+    };    
+
+    mailgun.messages().send(emailMessage, function (error, body) {
+      console.log(body);
+  });
+
 
     console.log(eventStartDate);
     knex('events')

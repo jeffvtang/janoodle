@@ -24,6 +24,15 @@ input[type=checkbox].css-checkbox + label.css-label {
 
 }
 
+h2{
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+h3{
+  font-weight: bold;
+}
+
 input[type=checkbox].css-checkbox:checked + label.css-label {
   background-position: 0 -50px;
 }
