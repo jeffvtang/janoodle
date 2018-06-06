@@ -53,7 +53,19 @@ module.exports = function(knex) {
     const creatorEmail = req.body.creatorEmail;
 
     const dates = eventStartDate.split(', ');
-    dates.forEach(date => {});
+    // dates.forEach(date => {});
+
+    var emailMessage = {
+      from: 'admin@janoodle.com',
+      to: 'abeprincec@gmail.com',
+      subject: creatorName + ' has invited you to an event!',
+      text: creatorName + ' has invited you their event "Social" on JANoodle. Please visit the link to view: http://localhost:8080/poll/' + urlId
+    };    
+
+    mailgun.messages().send(emailMessage, function (error, body) {
+      console.log(body);
+  });
+
 
     console.log(eventStartDate);
     knex('events')
@@ -97,7 +109,7 @@ module.exports = function(knex) {
       from: 'admin@janoodle.com',
       to: 'jeff.tang@live.com',
       subject: 'Someone has responded to your event!',
-      text: name + 'has responded to your event "Social" on JANoodle. Please visit the link to view: http://localhost:8080/poll/' + event_url
+      text: name + ' has responded to your event "Social" on JANoodle. Please visit the link to view: http://localhost:8080/poll/' + event_url
     };    
 
     mailgun.messages().send(emailMessage, function (error, body) {
@@ -266,14 +278,14 @@ module.exports = function(knex) {
     });
     
       makePollAdmin.delete("/poll/:id/delete", (req, res) => {
-        event_url = req.params.id
+        const eventurl = req.params.id
         deleteUser = req.body.timeid
 
         var emailMessage = {
           from: 'admin@janoodle.com',
           to: 'jeff.tang@live.com',
           subject: 'Someone has removed their response to your event!',
-          text: 'Someone has deleted their response on your event "Social" on JANoodle. Please visit the link to view: http://localhost:8080/poll/' + event_url
+          text: 'Someone has deleted their response on your event "Social" on JANoodle.'
         };    
     
         mailgun.messages().send(emailMessage, function (error, body) {
